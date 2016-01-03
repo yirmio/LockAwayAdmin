@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mOrderList = ParseConnector.getActiveOrders(LockAwayAdminApplication.getRestID());
+        mOrderList = ParseConnector.getActiveOtdersBL(LockAwayAdminApplication.getRestID());
         mAdapter = new MainListAdapter(this,R.layout.single_row_layout,mOrderList);
         mOrdersListView = (ListView) findViewById(R.id.listView_Orders);
         mOrdersListView.setAdapter(mAdapter);

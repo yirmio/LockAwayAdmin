@@ -8,6 +8,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
+import com.yirmio.lockawayadmin.BL.Order;
 import com.yirmio.lockawayadmin.BL.RestaurantMenuObject;
 
 
@@ -29,7 +30,16 @@ public final class ParseConnector {
     private static String TAG = "In ParseConnector Class";
     private static boolean tmpResult = false;
 
-
+public static ArrayList getActiveOtdersBL(String resturantID){
+    ArrayList<Order> resBL = new ArrayList();
+    ArrayList<ParseObject> resParse = getActiveOrders(resturantID);
+    Order tmpOrder;
+    for (ParseObject pO:resParse) {
+        tmpOrder = new Order(pO);
+        resBL.add(tmpOrder);
+    }
+    return resBL;
+}
     public static ArrayList getActiveOrders(String resturantID) {
         ArrayList res = null;
         ParseQuery query = ParseQuery.getQuery(ORDERS_ATTR);

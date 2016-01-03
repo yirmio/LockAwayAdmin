@@ -39,15 +39,14 @@ public class LockAwayAdminApplication extends Application {
         // Optionally enable public read access.
         // defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
-
-this.refreshOrders();
+        allOrders = new ArrayList<Order>();
+        this.refreshOrders();
         //TODO - log to server
     }
 
     private void refreshOrders() {
         ArrayList<ParseObject> orders = ParseConnector.getActiveOrders(restID);
-        for (ParseObject order :orders ) {
-            //TODO - convert parse to order class
+        for (ParseObject order : orders) {
             allOrders.add(new Order(order));
 
         }

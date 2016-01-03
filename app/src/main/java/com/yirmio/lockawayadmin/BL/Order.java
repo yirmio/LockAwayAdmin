@@ -20,20 +20,43 @@ public class Order {
     private Time timeToBeReady;
     private float timeToMakeAllOrder;
     private String orderId;
+    private OrderStatusEnum orderStatusEnum;
 
     public Order(ParseObject parseOrder) {
         this.orderId = parseOrder.getObjectId();
         this.clientID = parseOrder.getString("UserID");
         this.itemsByOrderToMake = this.convertParseMenuObjectsToLocalBL(ParseConnector.getObjectsByOrderID(this.orderId));
-
+        this.orderStatusEnum = OrderStatusEnum.valueOf(parseOrder.getString("OrderStatus"));
         //TODO - implement time converting from parse to string or android time
 
+        this.calcDetails();
+    }
 
+    private void calcDetails() {
+        float tmpSum = 0;
+        float tmpTimeToMake = 0;
+        for (RestaurantMenuObject o : this.itemsByOrderToMake) {
+            tmpSum += o.getPrice();
+            tmpTimeToMake += o.getTimeToMake();
+        }
+        this.totalPrice = tmpSum;
+        this.timeToMakeAllOrder = tmpTimeToMake;
     }
 
     private List<RestaurantMenuObject> convertParseMenuObjectsToLocalBL(List<ParseObject> parseObjects) {
-//TODO implement converting
+
+        RestaurantMenuObject tmpRestObj;
+        if (parseObjects != null) {
+            for (ParseObject o : parseObjects) {
+                tmpRestObj = new RestaurantMenuObject(o.getObjectId(), o.getString("Description"), o.getNumber("Price").floatValue(), o.getString("Name")
+                        , o.getNumber("TimeToMake").intValue(), o.getString("Type"), o.getBoolean("Veg"), o.getBoolean("GlotenFree"));
+                this.itemsByOrderToMake.add(tmpRestObj);
+            }
+            return this.itemsByOrderToMake;
+        }
         return null;
+
+
     }
 
     public OrderStatusEnum getOrderStatusEnum() {
@@ -44,8 +67,6 @@ public class Order {
         this.orderStatusEnum = orderStatusEnum;
     }
 
-    private OrderStatusEnum orderStatusEnum;
-
 
     public Order(String clientName, Time timeToBeReady) {
         this.clientName = clientName;
@@ -55,12 +76,10 @@ public class Order {
         this.timeToMakeAllOrder = 0;
 
     }
-    public Order(String orderID){
+
+    public Order(String orderID) {
 
     }
-
-
-
 
 
     public String getClientName() {
@@ -82,7 +101,13 @@ public class Order {
     public float getTimeToMakeAllOrder() {
         return timeToMakeAllOrder;
     }
-    
 
 
+    public String getOrderID() {
+        return this.orderId;
+    }
+
+    public String getInfo() {
+        return this.getInfo();
+    }
 }

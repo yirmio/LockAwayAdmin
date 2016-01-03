@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yirmio.lockawayadmin.BL.Order;
+import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
 import com.yirmio.lockawayadmin.R;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MainListAdapter extends ArrayAdapter {
 
     public MainListAdapter(Context context, int resource, ArrayList ordersList) {
         super(context, resource, ordersList);
-        context = context;
+        this.context = context;
         this.ordersList = ordersList;
     }
 
@@ -63,6 +64,40 @@ public class MainListAdapter extends ArrayAdapter {
 
     private void putDataInViewHolder(ViewHolder holder, OrdersListRawItem item) {
         //TODO - put data in view
+        if (item.getId() != null){
+            holder.orderID = item.getId();
+            if (item.getPrice() > 0){
+
+            }
+            if (item.getInfo() != null){
+
+            }
+            if (item.getTimeToMake() > 0){
+                holder.txtVwTotalTimeToMakeValue.setText(String.valueOf(item.getTimeToMake()));
+            }
+            if (item.getTotalItems() > 0){
+                holder.txtVwTotalItemsValue.setText(item.getTotalItems());
+            }
+            if (item.getOrderStatusEnum() != null) {
+                switch (item.getOrderStatusEnum()) {
+                    //TODO =- set icons
+                    case Active:
+                        break;
+                    case OnHold:
+                        break;
+                    case OnDelay:
+                        break;
+                    case OnMake:
+                        break;
+                    case Ready:
+                        break;
+                    case WaitingToStart:
+                        break;
+                    case Finish:
+                        break;
+                }
+            }
+        }
     }
 
     private void setViewItems(ViewHolder holder, View viewToUse, ViewGroup parent) {
@@ -81,6 +116,7 @@ public class MainListAdapter extends ArrayAdapter {
         TextView  txtVwTotalTimeToMakeValue;
         TextView  txtVwTimeToStartMakingOrder;
         ImageView imgVwStatusIcon;
+        String orderID;
     }
 }
 

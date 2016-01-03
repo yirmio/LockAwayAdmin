@@ -2,6 +2,7 @@ package com.yirmio.lockawayadmin.Utils;
 
 import com.parse.ParseFile;
 import com.yirmio.lockawayadmin.BL.Order;
+import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
 
 /**
  * Created by oppenhime on 07/12/2015.
@@ -9,21 +10,27 @@ import com.yirmio.lockawayadmin.BL.Order;
 public class OrdersListRawItem {
 
 
+    private final int totalItems;
     private float price;
     private String lable;
-    private int timeToMake;
+    private float timeToMake;
     private ParseFile photoParseFile;
     private String info;
     private boolean veg;
     private boolean glotenFree;
     private String id;
+    private OrderStatusEnum orderStatusEnum;
 
     public OrdersListRawItem(Order item) {
-        //todo implement
-
+        this.id = item.getOrderID();
+        this.info = item.getInfo();
+        this.timeToMake = item.getTimeToMakeAllOrder();
+        this.price = item.getTotalPrice();
+        this.totalItems = item.getItemsByOrderToMake().size();
+        this.orderStatusEnum = item.getOrderStatusEnum();
     }
 
-
+public OrderStatusEnum getOrderStatusEnum(){return this.orderStatusEnum;}
     public float getPrice() {
         return price;
     }
@@ -36,7 +43,7 @@ public class OrdersListRawItem {
         this.lable = lable;
     }
 
-    public int getTimeToMake() {
+    public float getTimeToMake() {
         return timeToMake;
     }
 
@@ -82,5 +89,9 @@ public class OrdersListRawItem {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getTotalItems() {
+        return this.totalItems;
     }
 }
