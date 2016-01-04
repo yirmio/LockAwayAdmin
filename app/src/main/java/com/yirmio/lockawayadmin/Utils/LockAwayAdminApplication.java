@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.yirmio.lockawayadmin.BL.Order;
@@ -27,18 +28,30 @@ public class LockAwayAdminApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
+
 
         // Add your initialization code here
         Parse.initialize(this, "i6hUPoLJOlkH8j0p4nB3q1r2x18Kbr2SHlKocuua", "32VPtaO5T2Rg62uZWO3i9x4jr9mfxOKePlSL0rlW");
 
+
+
+        ParseUser usr = null;
+        try {
+            usr = ParseUser.logIn("Yirmi", "Z69Hus&&");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
+        ParseACL defaultACL = new ParseACL(usr);
         // Optionally enable public read access.
-        // defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
+
+
         allOrders = new ArrayList<Order>();
         this.refreshOrders();
         //TODO - log to server

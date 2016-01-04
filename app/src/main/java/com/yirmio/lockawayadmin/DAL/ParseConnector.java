@@ -9,6 +9,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.yirmio.lockawayadmin.BL.Order;
+import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
 import com.yirmio.lockawayadmin.BL.RestaurantMenuObject;
 
 
@@ -183,6 +184,31 @@ public static ArrayList getActiveOtdersBL(String resturantID){
     public static List<ParseObject> getObjectsByOrderID(String orderId) {
         //TODO implement query
         return null;
+    }
+
+    public static void setOrderStatus(String orderID, OrderStatusEnum orderStatusEnum) {
+        ParseObject tmpOrder = getOrderByID(orderID);
+        tmpOrder.put("OrderStatus",orderStatusEnum.toString());
+        try {
+            tmpOrder.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static ParseObject getOrderByID(String orderID) {
+        ParseQuery query = ParseQuery.getQuery(ORDERS_ATTR);
+        ParseObject resToReturn = null;
+        query.whereEqualTo("objectId",orderID);
+        try {
+            List<ParseObject> res = query.find();
+            //TODO - check if first item is good......
+            resToReturn = res.get(0);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+return resToReturn;
     }
 
 //    public RestaurantMenu getMenu() {

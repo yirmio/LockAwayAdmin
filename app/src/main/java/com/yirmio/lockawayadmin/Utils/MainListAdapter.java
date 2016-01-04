@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.yirmio.lockawayadmin.BL.Order;
 import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
+import com.yirmio.lockawayadmin.DAL.ParseConnector;
 import com.yirmio.lockawayadmin.R;
 
 import java.util.ArrayList;
@@ -37,12 +38,13 @@ public class MainListAdapter extends ArrayAdapter {
         View viewToUse = null;
         OrdersListRawItem item = new OrdersListRawItem((Order) getItem(position));
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        final int pos = position;
 
         //First time view
         if (convertView == null){
-            viewToUse = mInflater.inflate(R.layout.menu_item_row_layout, null);
+            viewToUse = mInflater.inflate(R.layout.single_row_layout, null);
             holder = new ViewHolder();
-            setViewItems(holder, viewToUse, parent);    //Connect UI to holder properties
+            setViewItems(holder, viewToUse, parent,position);    //Connect UI to holder properties
             //TODO - buttons action here
 
             viewToUse.setTag(holder);
@@ -54,16 +56,10 @@ public class MainListAdapter extends ArrayAdapter {
         }
 
         putDataInViewHolder(holder, item);
-
-
-
-
-        //return super.getView(position, convertView, parent);
         return viewToUse;
     }
 
     private void putDataInViewHolder(ViewHolder holder, OrdersListRawItem item) {
-        //TODO - put data in view
         if (item.getId() != null){
             holder.orderID = item.getId();
             if (item.getPrice() > 0){
@@ -80,33 +76,63 @@ public class MainListAdapter extends ArrayAdapter {
             }
             if (item.getOrderStatusEnum() != null) {
                 switch (item.getOrderStatusEnum()) {
-                    //TODO =- set icons
                     case Active:
+                        holder.imgVwStatusIcon.setImageResource(R.drawable.ic_action_cart);
                         break;
                     case OnHold:
+                        holder.imgVwStatusIcon.setImageResource(R.drawable.ic_pause);
                         break;
                     case OnDelay:
+                        holder.imgVwStatusIcon.setImageResource(R.drawable.ic_timedelay);
                         break;
                     case OnMake:
+                        holder.imgVwStatusIcon.setImageResource(R.drawable.ic_build);
                         break;
                     case Ready:
+                        holder.imgVwStatusIcon.setImageResource(R.drawable.ic_done);
                         break;
                     case WaitingToStart:
+                        holder.imgVwStatusIcon.setImageResource(R.drawable.ic_av_waiting);
                         break;
                     case Finish:
+                        holder.imgVwStatusIcon.setImageResource(R.drawable.ic_done_all);
                         break;
+                    default:
+                        holder.imgVwStatusIcon.setImageResource(R.drawable.ic_android);
                 }
             }
         }
     }
 
-    private void setViewItems(ViewHolder holder, View viewToUse, ViewGroup parent) {
+    private void setViewItems(ViewHolder holder, View viewToUse, ViewGroup parent,int pos) {
+        final int tmpPos = pos;
+        //Connecting
         holder.btnDone = (Button) viewToUse.findViewById(R.id.buttonDone);
         holder.txtVwETAValue = (TextView) viewToUse.findViewById(R.id.textViewETAValue);
         holder.txtVwTotalItemsValue = (TextView) viewToUse.findViewById(R.id.textViewTotalItemsInOrderValue);
         holder.txtVwTotalTimeToMakeValue = (TextView) viewToUse.findViewById(R.id.textViewTimeToMakeValue);
         holder.txtVwTimeToStartMakingOrder = (TextView) viewToUse.findViewById(R.id.textViewTimeToStartMakingOrderValue);
         holder.imgVwStatusIcon = (ImageView) viewToUse.findViewById(R.id.imageViewUserStatus);
+
+        //Setting Actions
+        holder.btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeOrderStatus(tmpPos);
+
+            }
+        });
+    }
+
+    private void changeOrderStatus(int tmpPos) {
+        Order tmpOrder = (Order)this.ordersList.get(tmpPos);
+        //Change BL
+        tmpOrder.setOrderStatusEnum(OrderStatusEnum.Ready);
+        //Change DAL
+        ParseConnector.setOrderStatus(tmpOrder.getOrderID(),tmpOrder.getOrderStatusEnum());
+        //Update UI
+        //TODO - implement
+
     }
 
     private class ViewHolder {
@@ -119,23 +145,3 @@ public class MainListAdapter extends ArrayAdapter {
         String orderID;
     }
 }
-
-
-
-
-
-//    LayoutInflater inflater = (LayoutInflater) context
-//            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//    View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
-//    TextView textView = (TextView) rowView.findViewById(R.id.label);
-//    ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-//textView.setText(values[position]);
-//        // change the icon for Windows and iPhone
-//        String s = values[position];
-//        if (s.startsWith("iPhone")) {
-//        imageView.setImageResource(R.drawable.no);
-//        } else {
-//        imageView.setImageResource(R.drawable.ok);
-//        }
-//
-//        return rowView;

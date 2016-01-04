@@ -15,6 +15,7 @@ import java.util.List;
 public class Order {
     private String clientName;
     private String clientID;
+    private String extraInfo;
     private float totalPrice;
     private List<RestaurantMenuObject> itemsByOrderToMake;
     private Time timeToBeReady;
@@ -25,11 +26,14 @@ public class Order {
     public Order(ParseObject parseOrder) {
         this.orderId = parseOrder.getObjectId();
         this.clientID = parseOrder.getString("UserID");
+        this.extraInfo = parseOrder.getString("ExtraInfo");
         this.itemsByOrderToMake = this.convertParseMenuObjectsToLocalBL(ParseConnector.getObjectsByOrderID(this.orderId));
         this.orderStatusEnum = OrderStatusEnum.valueOf(parseOrder.getString("OrderStatus"));
         //TODO - implement time converting from parse to string or android time
 
-        this.calcDetails();
+        if (this.itemsByOrderToMake != null) {
+            this.calcDetails();
+        }
     }
 
     private void calcDetails() {
@@ -108,6 +112,16 @@ public class Order {
     }
 
     public String getInfo() {
-        return this.getInfo();
+        return this.extraInfo;
+    }
+
+
+    public int getTotalItems() {
+        if (this.itemsByOrderToMake != null){
+            return this.itemsByOrderToMake.size();
+        }
+        else {
+            return 0;
+        }
     }
 }

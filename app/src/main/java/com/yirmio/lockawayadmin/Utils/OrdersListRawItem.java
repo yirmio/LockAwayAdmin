@@ -26,7 +26,7 @@ public class OrdersListRawItem {
         this.info = item.getInfo();
         this.timeToMake = item.getTimeToMakeAllOrder();
         this.price = item.getTotalPrice();
-        this.totalItems = item.getItemsByOrderToMake().size();
+        this.totalItems = item.getTotalItems();
         this.orderStatusEnum = item.getOrderStatusEnum();
     }
 

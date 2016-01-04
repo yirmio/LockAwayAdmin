@@ -10,7 +10,7 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     //region Properties
     private float price;
     private String title;
-    private int timeToMake;
+    private float timeToMake;
     private ParseFile pic;
     private String type;
     private boolean isReady;
@@ -100,7 +100,7 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     public String getTitle() {
         return title;
     }
-    public int getTimeToMake() {
+    public float getTimeToMake() {
         return timeToMake;
     }
 //    public ParseFile getPic() {
