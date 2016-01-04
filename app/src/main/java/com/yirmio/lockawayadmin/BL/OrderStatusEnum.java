@@ -1,5 +1,7 @@
 package com.yirmio.lockawayadmin.BL;
 
+import java.util.ArrayList;
+
 /**
  * Created by yirmio on 3/24/2015.
  */
@@ -10,7 +12,21 @@ public enum OrderStatusEnum {
     OnMake,
     Ready,
     WaitingToStart,
-    Finish
+    Finish;
 
+
+    public static String[] getAllValues(){
+        String[] res = new String[OrderStatusEnum.values().length];
+        OrderStatusEnum[] r = OrderStatusEnum.values();
+        for (int i = 0; i < OrderStatusEnum.values().length; i++) {
+            res[i] = r[i].name();
+        }
+        return res;
+    }
+
+    public static OrderStatusEnum fromInt(int i) {
+        return values()[i];
+
+    }
 }
 

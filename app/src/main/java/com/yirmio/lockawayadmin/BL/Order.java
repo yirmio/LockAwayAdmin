@@ -26,6 +26,7 @@ public class Order {
     public Order(ParseObject parseOrder) {
         this.orderId = parseOrder.getObjectId();
         this.clientID = parseOrder.getString("UserID");
+        this.clientName = ParseConnector.getUserNameFromID(this.clientID);
         this.extraInfo = parseOrder.getString("ExtraInfo");
         this.itemsByOrderToMake = this.convertParseMenuObjectsToLocalBL(ParseConnector.getObjectsByOrderID(this.orderId));
         this.orderStatusEnum = OrderStatusEnum.valueOf(parseOrder.getString("OrderStatus"));
@@ -123,5 +124,9 @@ public class Order {
         else {
             return 0;
         }
+    }
+
+    public String getUserName() {
+        return this.clientName;
     }
 }

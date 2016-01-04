@@ -20,6 +20,7 @@ public class OrdersListRawItem {
     private boolean glotenFree;
     private String id;
     private OrderStatusEnum orderStatusEnum;
+    private String userName;
 
     public OrdersListRawItem(Order item) {
         this.id = item.getOrderID();
@@ -28,6 +29,7 @@ public class OrdersListRawItem {
         this.price = item.getTotalPrice();
         this.totalItems = item.getTotalItems();
         this.orderStatusEnum = item.getOrderStatusEnum();
+        this.userName = item.getUserName();
     }
 
 public OrderStatusEnum getOrderStatusEnum(){return this.orderStatusEnum;}
@@ -93,5 +95,9 @@ public OrderStatusEnum getOrderStatusEnum(){return this.orderStatusEnum;}
 
     public int getTotalItems() {
         return this.totalItems;
+    }
+
+    public String getUserName() {
+        return this.userName;
     }
 }

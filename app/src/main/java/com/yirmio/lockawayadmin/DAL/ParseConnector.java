@@ -3,10 +3,12 @@ package com.yirmio.lockawayadmin.DAL;
 import android.util.Log;
 
 import com.parse.DeleteCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.yirmio.lockawayadmin.BL.Order;
 import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
@@ -31,16 +33,17 @@ public final class ParseConnector {
     private static String TAG = "In ParseConnector Class";
     private static boolean tmpResult = false;
 
-public static ArrayList getActiveOtdersBL(String resturantID){
-    ArrayList<Order> resBL = new ArrayList();
-    ArrayList<ParseObject> resParse = getActiveOrders(resturantID);
-    Order tmpOrder;
-    for (ParseObject pO:resParse) {
-        tmpOrder = new Order(pO);
-        resBL.add(tmpOrder);
+    public static ArrayList getActiveOtdersBL(String resturantID) {
+        ArrayList<Order> resBL = new ArrayList();
+        ArrayList<ParseObject> resParse = getActiveOrders(resturantID);
+        Order tmpOrder;
+        for (ParseObject pO : resParse) {
+            tmpOrder = new Order(pO);
+            resBL.add(tmpOrder);
+        }
+        return resBL;
     }
-    return resBL;
-}
+
     public static ArrayList getActiveOrders(String resturantID) {
         ArrayList res = null;
         ParseQuery query = ParseQuery.getQuery(ORDERS_ATTR);
@@ -51,9 +54,10 @@ public static ArrayList getActiveOtdersBL(String resturantID){
             List<ParseObject> objects = query.find();
             if (objects.size() > 0) {
                 res = new ArrayList();
-            for (ParseObject p : objects) {
-                res.add(p);
-            }}
+                for (ParseObject p : objects) {
+                    res.add(p);
+                }
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -188,7 +192,7 @@ public static ArrayList getActiveOtdersBL(String resturantID){
 
     public static void setOrderStatus(String orderID, OrderStatusEnum orderStatusEnum) {
         ParseObject tmpOrder = getOrderByID(orderID);
-        tmpOrder.put("OrderStatus",orderStatusEnum.toString());
+        tmpOrder.put("OrderStatus", orderStatusEnum.toString());
         try {
             tmpOrder.save();
         } catch (ParseException e) {
@@ -200,7 +204,7 @@ public static ArrayList getActiveOtdersBL(String resturantID){
     private static ParseObject getOrderByID(String orderID) {
         ParseQuery query = ParseQuery.getQuery(ORDERS_ATTR);
         ParseObject resToReturn = null;
-        query.whereEqualTo("objectId",orderID);
+        query.whereEqualTo("objectId", orderID);
         try {
             List<ParseObject> res = query.find();
             //TODO - check if first item is good......
@@ -208,7 +212,21 @@ public static ArrayList getActiveOtdersBL(String resturantID){
         } catch (ParseException e) {
             e.printStackTrace();
         }
-return resToReturn;
+        return resToReturn;
+    }
+
+    public static String getUserNameFromID(String clientID) {
+        ParseQuery query = ParseUser.getQuery();
+        ParseObject res = null;
+        query.whereEqualTo("objectId", clientID);
+        try {
+            List<ParseUser> result = query.find();
+            return result.get(0).getUsername();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 //    public RestaurantMenu getMenu() {

@@ -1,7 +1,11 @@
 package com.yirmio.lockawayadmin.Utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +20,7 @@ import com.yirmio.lockawayadmin.DAL.ParseConnector;
 import com.yirmio.lockawayadmin.R;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Created by oppenhime on 07/12/2015.
@@ -41,10 +45,10 @@ public class MainListAdapter extends ArrayAdapter {
         final int pos = position;
 
         //First time view
-        if (convertView == null){
+        if (convertView == null) {
             viewToUse = mInflater.inflate(R.layout.single_row_layout, null);
             holder = new ViewHolder();
-            setViewItems(holder, viewToUse, parent,position);    //Connect UI to holder properties
+            setViewItems(holder, viewToUse, parent, position);    //Connect UI to holder properties
             //TODO - buttons action here
 
             viewToUse.setTag(holder);
@@ -60,19 +64,22 @@ public class MainListAdapter extends ArrayAdapter {
     }
 
     private void putDataInViewHolder(ViewHolder holder, OrdersListRawItem item) {
-        if (item.getId() != null){
+        if (item.getId() != null) {
             holder.orderID = item.getId();
-            if (item.getPrice() > 0){
+            if (item.getPrice() > 0) {
 
             }
-            if (item.getInfo() != null){
+            if (item.getInfo() != null) {
 
             }
-            if (item.getTimeToMake() > 0){
+            if (item.getTimeToMake() > 0) {
                 holder.txtVwTotalTimeToMakeValue.setText(String.valueOf(item.getTimeToMake()));
             }
-            if (item.getTotalItems() > 0){
+            if (item.getTotalItems() > 0) {
                 holder.txtVwTotalItemsValue.setText(item.getTotalItems());
+            }
+            if (item.getUserName() != null){
+                holder.txtVwUserName.setText(item.getUserName());
             }
             if (item.getOrderStatusEnum() != null) {
                 switch (item.getOrderStatusEnum()) {
@@ -104,7 +111,7 @@ public class MainListAdapter extends ArrayAdapter {
         }
     }
 
-    private void setViewItems(ViewHolder holder, View viewToUse, ViewGroup parent,int pos) {
+    private void setViewItems(ViewHolder holder, View viewToUse, ViewGroup parent, int pos) {
         final int tmpPos = pos;
         //Connecting
         holder.btnDone = (Button) viewToUse.findViewById(R.id.buttonDone);
@@ -113,6 +120,7 @@ public class MainListAdapter extends ArrayAdapter {
         holder.txtVwTotalTimeToMakeValue = (TextView) viewToUse.findViewById(R.id.textViewTimeToMakeValue);
         holder.txtVwTimeToStartMakingOrder = (TextView) viewToUse.findViewById(R.id.textViewTimeToStartMakingOrderValue);
         holder.imgVwStatusIcon = (ImageView) viewToUse.findViewById(R.id.imageViewUserStatus);
+        holder.txtVwUserName = (TextView) viewToUse.findViewById(R.id.textViewUserName);
 
         //Setting Actions
         holder.btnDone.setOnClickListener(new View.OnClickListener() {
@@ -124,23 +132,35 @@ public class MainListAdapter extends ArrayAdapter {
         });
     }
 
-    private void changeOrderStatus(int tmpPos) {
-        Order tmpOrder = (Order)this.ordersList.get(tmpPos);
-        //Change BL
-        tmpOrder.setOrderStatusEnum(OrderStatusEnum.Ready);
-        //Change DAL
-        ParseConnector.setOrderStatus(tmpOrder.getOrderID(),tmpOrder.getOrderStatusEnum());
-        //Update UI
-        //TODO - implement
-
+    private void changeOrderStatus(final int tmpPos) {
+        final Order tmpOrder = (Order) this.ordersList.get(tmpPos);
+        //Dialog
+//Dialog dialog = new Dialog(this.context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Pick Status");//TODO - strings.xml
+        builder.setItems(OrderStatusEnum.getAllValues(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //Change BL
+                tmpOrder.setOrderStatusEnum(OrderStatusEnum.fromInt(i));
+                //Change DAL
+                ParseConnector.setOrderStatus(tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
+                //Update UI
+                notifyDataSetChanged();
+            }
+        });
+        builder.create();
+        builder.show();
     }
 
+
     private class ViewHolder {
-        Button    btnDone;
-        TextView  txtVwETAValue;
-        TextView  txtVwTotalItemsValue;
-        TextView  txtVwTotalTimeToMakeValue;
-        TextView  txtVwTimeToStartMakingOrder;
+        Button btnDone;
+        TextView txtVwETAValue;
+        TextView txtVwTotalItemsValue;
+        TextView txtVwTotalTimeToMakeValue;
+        TextView txtVwTimeToStartMakingOrder;
+        TextView txtVwUserName;
         ImageView imgVwStatusIcon;
         String orderID;
     }
