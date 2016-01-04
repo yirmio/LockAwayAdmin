@@ -49,7 +49,7 @@ public class MainListAdapter extends ArrayAdapter {
             viewToUse = mInflater.inflate(R.layout.single_row_layout, null);
             holder = new ViewHolder();
             setViewItems(holder, viewToUse, parent, position);    //Connect UI to holder properties
-            //TODO - buttons action here
+
 
             viewToUse.setTag(holder);
         }
