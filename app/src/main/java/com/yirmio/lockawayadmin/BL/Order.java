@@ -28,7 +28,8 @@ public class Order {
         this.clientID = parseOrder.getString("UserID");
         this.clientName = ParseConnector.getUserNameFromID(this.clientID);
         this.extraInfo = parseOrder.getString("ExtraInfo");
-        this.itemsByOrderToMake = this.convertParseMenuObjectsToLocalBL(ParseConnector.getObjectsByOrderID(this.orderId));
+//        this.itemsByOrderToMake = this.convertParseMenuObjectsToLocalBL(ParseConnector.getObjectsByOrderID(this.orderId));
+        this.itemsByOrderToMake = ParseConnector.getObjectsByOrderID(this.orderId);
         this.orderStatusEnum = OrderStatusEnum.valueOf(parseOrder.getString("OrderStatus"));
         //TODO - implement time converting from parse to string or android time
 
@@ -118,12 +119,11 @@ public class Order {
 
 
     public int getTotalItems() {
+        int ret = 0;
         if (this.itemsByOrderToMake != null){
-            return this.itemsByOrderToMake.size();
+            ret =  this.itemsByOrderToMake.size();
         }
-        else {
-            return 0;
-        }
+        return ret;
     }
 
     public String getUserName() {

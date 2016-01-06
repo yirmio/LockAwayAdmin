@@ -185,9 +185,46 @@ public final class ParseConnector {
         return res;
     }
 
-    public static List<ParseObject> getObjectsByOrderID(String orderId) {
-        //TODO implement query
-        return null;
+    public static List<RestaurantMenuObject> getObjectsByOrderID(String orderId) {
+        ParseQuery query = new ParseQuery("OrderedObjects");//TODO Const
+        query.whereEqualTo("OrderID",orderId);//TODO use const
+        List<ParseObject> listRes = null;
+        try {
+
+            listRes = query.find();
+
+        } catch (ParseException e) {
+            return null;
+        }
+        if (listRes != null) {
+            List<RestaurantMenuObject> menuObjects = new ArrayList<RestaurantMenuObject>();
+            ParseObject tmpParseObject = null;
+            //Get Full Object
+            for (ParseObject pObj:listRes) {
+                tmpParseObject = getMenuObjectByID(pObj.getString("MenuObjectID")); //TODO use const
+                menuObjects.add(CreateMenuItemFromParseObject(tmpParseObject));
+            }
+            return menuObjects;
+
+        }
+        else {
+            return null;
+        }
+
+    }
+
+    private static ParseObject getMenuObjectByID(String menuObjectID) {
+        ParseObject tmpParseObject = null;
+        ParseQuery query = new ParseQuery("MenuObjects");//TODO use const
+        List<ParseObject> tmpRes = null;
+        query.whereEqualTo("objectId",menuObjectID);
+        try {
+            tmpRes = query.find();
+            tmpParseObject = tmpRes.get(0);//TODO - handle more than one result
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return tmpParseObject;
     }
 
     public static void setOrderStatus(String orderID, OrderStatusEnum orderStatusEnum) {
@@ -218,15 +255,16 @@ public final class ParseConnector {
     public static String getUserNameFromID(String clientID) {
         ParseQuery query = ParseUser.getQuery();
         ParseObject res = null;
+        String username = null;
         query.whereEqualTo("objectId", clientID);
         try {
             List<ParseUser> result = query.find();
-            return result.get(0).getUsername();
+            username = result.get(0).getUsername();
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return "";
+        return username;
     }
 
 //    public RestaurantMenu getMenu() {
@@ -262,25 +300,28 @@ public final class ParseConnector {
 //        return restaurantMenuResult;
 //    }
 
-//    //Create MenuItem From ParseObject
-//    private RestaurantMenuObject CreateMenuItemFromParseObject(ParseObject obj) {
-//        try {
-//            float price = obj.getNumber("Price").floatValue();
-//            String title = obj.getString("Name");
-//            int timeToMake = obj.getNumber("TimeToMake").intValue();
-//            String description = obj.getString("Description");
-//            boolean isVeg = obj.getBoolean("Veg");
-//            boolean isGlotenFree = obj.getBoolean("GlotenFree");
-//            String id = obj.getObjectId();
-//            String type;
-//            //TODO handle real type
-//            if (obj.getParseObject("Type") != null) {
-//                type = (obj.getParseObject("Type")).getString("TypeName");
-//            } else {
-//                type = "No Type";
-//            }
-//            boolean isReady = false;
-//
+    //Create MenuItem From ParseObject
+    public static RestaurantMenuObject CreateMenuItemFromParseObject(ParseObject obj) {
+        try {
+            //TODO use const not strings
+            float price = obj.getNumber("Price").floatValue();
+            String title = obj.getString("Name");
+            int timeToMake = obj.getNumber("TimeToMake").intValue();
+            boolean isVeg = obj.getBoolean("Veg");
+            boolean isAvaliable = obj.getBoolean("IsAvaliable");
+            String storeID = obj.getString("StoreID");
+            String description = obj.getString("Description");
+            boolean isGlotenFree = obj.getBoolean("GlotenFree");
+            String id = obj.getObjectId();
+            String type;
+            //TODO handle real type
+            if (obj.getParseObject("Type") != null) {
+                type = (obj.getParseObject("Type")).getString("TypeName");
+            } else {
+                type = "No Type";
+            }
+            boolean isReady = false;
+
 //            //TODO - handle more than one image per object
 //            List<ParseFile> tmpFilesArray = getImagesFilesForObject(obj.getObjectId(), 1);
 //            ParseFile tmpFile = null;
@@ -289,14 +330,15 @@ public final class ParseConnector {
 //                    tmpFile = getImagesFilesForObject(obj.getObjectId(), 1).get(0);
 //                }
 //            }
+            return new RestaurantMenuObject(id,description,price,title,timeToMake,type,isVeg,isGlotenFree);
 //            return new RestaurantMenuObject(id, description, price, title, timeToMake, tmpFile, type, isVeg, isGlotenFree);
-//        } catch (Exception e) {
-//            Log.e(TAG, e.getMessage());
-//            return null;
-//        }
-//
-//
-//    }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return null;
+        }
+
+
+    }
 
 //    public static boolean addObjectToOrder(String id, String orderID) {
 //        ParseObject tmpItem = new ParseObject("OrderedObjects");

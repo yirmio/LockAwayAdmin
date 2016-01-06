@@ -25,20 +25,20 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     //region Ctor
     public RestaurantMenuObject() {
     }
-    //Convert MenuListRowLayoutItem to RestaurantMenuObject
-    public RestaurantMenuObject(OrdersListRawItem item){
-        this.price = item.getPrice();
-        this.title = item.getLable();
-        this.timeToMake = item.getTimeToMake();
-        //this.pic = item.getPhotoParseFile();
-        //TODO handle type
-        //this.type = item.get;
-        this.isReady = false;
-        this.description = item.getInfo();
-        this.isVeg = item.isVeg();
-        this.isGlootenFree = item.isGlotenFree();
-        this.id = item.getId();
-    }
+//    //Convert MenuListRowLayoutItem to RestaurantMenuObject
+//    public RestaurantMenuObject(OrdersListRawItem item){
+//        this.price = item.getPrice();
+//        this.title = item.getLable();
+//        this.timeToMake = item.getTimeToMake();
+//        //this.pic = item.getPhotoParseFile();
+//        //TODO handle type
+//        //this.type = item.get;
+//        this.isReady = false;
+//        this.description = item.getInfo();
+//        this.isVeg = item.isVeg();
+//        this.isGlootenFree = item.isGlotenFree();
+//        this.id = item.getId();
+//    }
 
     public RestaurantMenuObject(String itemID, String desc, float price, String title, int timeToMake, String type, boolean isVeg, boolean isGlootenFree) {
 

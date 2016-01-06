@@ -76,7 +76,7 @@ public class MainListAdapter extends ArrayAdapter {
                 holder.txtVwTotalTimeToMakeValue.setText(String.valueOf(item.getTimeToMake()));
             }
             if (item.getTotalItems() > 0) {
-                holder.txtVwTotalItemsValue.setText(item.getTotalItems());
+                holder.txtVwTotalItemsValue.setText(String.valueOf(item.getTotalItems()));
             }
             if (item.getUserName() != null){
                 holder.txtVwUserName.setText(item.getUserName());
