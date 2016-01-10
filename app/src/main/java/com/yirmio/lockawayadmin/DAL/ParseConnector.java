@@ -3,6 +3,8 @@ package com.yirmio.lockawayadmin.DAL;
 import android.util.Log;
 
 import com.parse.DeleteCallback;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -49,6 +51,8 @@ public final class ParseConnector {
         ParseQuery query = ParseQuery.getQuery(ORDERS_ATTR);
         query.whereEqualTo("ResturantID", resturantID);
         query.whereNotEqualTo("OrderStatus", "done");
+        query.whereNotEqualTo("OrderStatus", "Active");
+        query.whereNotEqualTo("OrderStatus", "Finish");
 
         try {
             List<ParseObject> objects = query.find();
@@ -186,55 +190,66 @@ public final class ParseConnector {
     }
 
     public static List<RestaurantMenuObject> getObjectsByOrderID(String orderId) {
-        ParseQuery query = new ParseQuery("OrderedObjects");//TODO Const
-        query.whereEqualTo("OrderID",orderId);//TODO use const
-        List<ParseObject> listRes = null;
-        try {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("OrderedObjects");//TODO Const
+        query.whereEqualTo("OrderID", orderId);//TODO use const
+        final List<ParseObject> listRes = new ArrayList<>();
 
-            listRes = query.find();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    if (objects.size() > 0) {
+                        for (ParseObject pObj : objects) {
+                            listRes.add(pObj);
+                        }
+                    }
 
-        } catch (ParseException e) {
-            return null;
-        }
+                }
+
+
+            }
+
+
+        });
+
         if (listRes != null) {
             List<RestaurantMenuObject> menuObjects = new ArrayList<RestaurantMenuObject>();
             ParseObject tmpParseObject = null;
             //Get Full Object
-            for (ParseObject pObj:listRes) {
+            for (ParseObject pObj : listRes) {
                 tmpParseObject = getMenuObjectByID(pObj.getString("MenuObjectID")); //TODO use const
                 menuObjects.add(CreateMenuItemFromParseObject(tmpParseObject));
             }
             return menuObjects;
 
-        }
-        else {
+        } else {
             return null;
         }
 
     }
 
     private static ParseObject getMenuObjectByID(String menuObjectID) {
-        ParseObject tmpParseObject = null;
-        ParseQuery query = new ParseQuery("MenuObjects");//TODO use const
+        final ParseObject[] tmpParseObject = {null};
         List<ParseObject> tmpRes = null;
-        query.whereEqualTo("objectId",menuObjectID);
-        try {
-            tmpRes = query.find();
-            tmpParseObject = tmpRes.get(0);//TODO - handle more than one result
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return tmpParseObject;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("MenuObjects"); //TODO use const
+        query.getInBackground(menuObjectID, new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    tmpParseObject[0] = object;
+                } else {
+//                            objectRetrievalFailed();
+                }
+            }
+        });
+
+        return tmpParseObject[0];
     }
 
     public static void setOrderStatus(String orderID, OrderStatusEnum orderStatusEnum) {
         ParseObject tmpOrder = getOrderByID(orderID);
         tmpOrder.put("OrderStatus", orderStatusEnum.toString());
-        try {
-            tmpOrder.save();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        tmpOrder.saveInBackground();
 
     }
 
@@ -330,7 +345,7 @@ public final class ParseConnector {
 //                    tmpFile = getImagesFilesForObject(obj.getObjectId(), 1).get(0);
 //                }
 //            }
-            return new RestaurantMenuObject(id,description,price,title,timeToMake,type,isVeg,isGlotenFree);
+            return new RestaurantMenuObject(id, description, price, title, timeToMake, type, isVeg, isGlotenFree);
 //            return new RestaurantMenuObject(id, description, price, title, timeToMake, tmpFile, type, isVeg, isGlotenFree);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

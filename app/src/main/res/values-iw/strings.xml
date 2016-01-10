@@ -3,4 +3,5 @@
     <string name="app_name">LockAwayAdmin</string>
     <string name="done">מוכן</string>
     <string name="changeStatus" >עדכן</string>
+    <string name="refreshlist" >רענון</string>
 </resources>
