@@ -56,7 +56,7 @@ public class LockAwayAdminApplication extends Application {
 
 
         allOrders = new ArrayList<Order>();
-        this.refreshOrders();
+//        this.refreshOrders();
         //TODO - log to server
     }
 

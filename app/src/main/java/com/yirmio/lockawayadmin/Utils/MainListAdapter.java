@@ -72,6 +72,9 @@ public class MainListAdapter extends ArrayAdapter {
             if (item.getInfo() != null) {
 
             }
+            if (item.getClientETA() != null){
+                holder.txtVwETAValue.setText(item.getClientETA());
+            }
             if (item.getTimeToMake() > 0) {
                 holder.txtVwTotalTimeToMakeValue.setText(String.valueOf(item.getTimeToMake()));
             }
@@ -103,6 +106,7 @@ public class MainListAdapter extends ArrayAdapter {
                         break;
                     case Finish:
                         holder.imgVwStatusIcon.setImageResource(R.drawable.ic_done_all);
+                        //TODO - refresh list
                         break;
                     default:
                         holder.imgVwStatusIcon.setImageResource(R.drawable.ic_android);

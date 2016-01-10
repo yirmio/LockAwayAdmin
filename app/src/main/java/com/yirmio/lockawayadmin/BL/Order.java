@@ -7,12 +7,15 @@ import com.yirmio.lockawayadmin.DAL.ParseConnector;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by oppenhime on 07/12/2015.
  */
 public class Order {
+    private String clientETA;
     private String clientName;
     private String clientID;
     private String extraInfo;
@@ -24,6 +27,12 @@ public class Order {
     private OrderStatusEnum orderStatusEnum;
 
     public Order(ParseObject parseOrder) {
+        if (parseOrder.getDate("UserETA") != null) {
+            Date eta = parseOrder.getDate("UserETA");
+            String etaString = null;
+            etaString = String.valueOf(eta.getHours()) + ":" + String.valueOf(eta.getMinutes());
+            this.clientETA = etaString;
+        }
         this.orderId = parseOrder.getObjectId();
         this.clientID = parseOrder.getString("UserID");
         this.clientName = ParseConnector.getUserNameFromID(this.clientID);
@@ -74,18 +83,19 @@ public class Order {
     }
 
 
-    public Order(String clientName, Time timeToBeReady) {
+    public Order(String clientName, Time timeToBeReady, String clientETA) {
         this.clientName = clientName;
         this.timeToBeReady = timeToBeReady;
         this.totalPrice = 0;
         this.itemsByOrderToMake = new ArrayList<RestaurantMenuObject>();
         this.timeToMakeAllOrder = 0;
+        this.clientETA = clientETA;
 
     }
-
-    public Order(String orderID) {
-
-    }
+//Not Used
+//    public Order(String orderID) {
+//
+//    }
 
 
     public String getClientName() {
@@ -120,13 +130,17 @@ public class Order {
 
     public int getTotalItems() {
         int ret = 0;
-        if (this.itemsByOrderToMake != null){
-            ret =  this.itemsByOrderToMake.size();
+        if (this.itemsByOrderToMake != null) {
+            ret = this.itemsByOrderToMake.size();
         }
         return ret;
     }
 
     public String getUserName() {
         return this.clientName;
+    }
+
+    public String getClientETA() {
+        return clientETA;
     }
 }

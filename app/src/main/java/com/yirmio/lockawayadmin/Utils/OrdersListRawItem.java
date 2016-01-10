@@ -21,6 +21,7 @@ public class OrdersListRawItem {
     private String id;
     private OrderStatusEnum orderStatusEnum;
     private String userName;
+    private String clientETA;
 
     public OrdersListRawItem(Order item) {
         this.id = item.getOrderID();
@@ -30,6 +31,7 @@ public class OrdersListRawItem {
         this.totalItems = item.getTotalItems();
         this.orderStatusEnum = item.getOrderStatusEnum();
         this.userName = item.getUserName();
+        this.clientETA = item.getClientETA();
     }
 
 public OrderStatusEnum getOrderStatusEnum(){return this.orderStatusEnum;}
@@ -99,5 +101,9 @@ public OrderStatusEnum getOrderStatusEnum(){return this.orderStatusEnum;}
 
     public String getUserName() {
         return this.userName;
+    }
+
+    public String getClientETA() {
+        return this.clientETA;
     }
 }
