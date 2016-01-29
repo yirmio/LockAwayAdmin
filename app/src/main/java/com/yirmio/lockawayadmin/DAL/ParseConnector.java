@@ -39,9 +39,11 @@ public final class ParseConnector {
         ArrayList<Order> resBL = new ArrayList();
         ArrayList<ParseObject> resParse = getActiveOrders(resturantID);
         Order tmpOrder;
-        for (ParseObject pO : resParse) {
-            tmpOrder = new Order(pO);
-            resBL.add(tmpOrder);
+        if (resParse!= null) {
+            for (ParseObject pO : resParse) {
+                tmpOrder = new Order(pO);
+                resBL.add(tmpOrder);
+            }
         }
         return resBL;
     }
