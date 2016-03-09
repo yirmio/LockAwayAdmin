@@ -72,7 +72,7 @@ public class MainListAdapter extends ArrayAdapter {
             if (item.getInfo() != null) {
 
             }
-            if (item.getClientETA() != null){
+            if (item.getClientETA() != null) {
                 holder.txtVwETAValue.setText(item.getClientETA());
             }
             if (item.getTimeToMake() > 0) {
@@ -81,7 +81,7 @@ public class MainListAdapter extends ArrayAdapter {
             if (item.getTotalItems() > 0) {
                 holder.txtVwTotalItemsValue.setText(String.valueOf(item.getTotalItems()));
             }
-            if (item.getUserName() != null){
+            if (item.getUserName() != null) {
                 holder.txtVwUserName.setText(item.getUserName());
             }
             if (item.getOrderStatusEnum() != null) {
@@ -148,6 +148,13 @@ public class MainListAdapter extends ArrayAdapter {
                 //Change BL
                 tmpOrder.setOrderStatusEnum(OrderStatusEnum.fromInt(i));
                 //Change DAL
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        ParseConnector.setOrderStatus(tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
+                    }
+                });
+                thread.start();
                 ParseConnector.setOrderStatus(tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
                 //Update UI
                 notifyDataSetChanged();

@@ -39,7 +39,12 @@ public class Order {
         this.extraInfo = parseOrder.getString("ExtraInfo");
 //        this.itemsByOrderToMake = this.convertParseMenuObjectsToLocalBL(ParseConnector.getObjectsByOrderID(this.orderId));
         this.itemsByOrderToMake = ParseConnector.getObjectsByOrderID(this.orderId);
-        this.orderStatusEnum = OrderStatusEnum.valueOf(parseOrder.getString("OrderStatus"));
+        if (parseOrder.getString("OrderStatus") != null) {
+            this.orderStatusEnum = OrderStatusEnum.valueOf(parseOrder.getString("OrderStatus"));
+        }
+        else {
+            this.orderStatusEnum = OrderStatusEnum.Active;
+        }
         //TODO - implement time converting from parse to string or android time
 
         if (this.itemsByOrderToMake != null) {

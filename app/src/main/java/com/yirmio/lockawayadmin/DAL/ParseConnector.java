@@ -6,6 +6,7 @@ import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -18,6 +19,7 @@ import com.yirmio.lockawayadmin.BL.RestaurantMenuObject;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,7 +41,7 @@ public final class ParseConnector {
         ArrayList<Order> resBL = new ArrayList();
         ArrayList<ParseObject> resParse = getActiveOrders(resturantID);
         Order tmpOrder;
-        if (resParse!= null) {
+        if (resParse != null) {
             for (ParseObject pO : resParse) {
                 tmpOrder = new Order(pO);
                 resBL.add(tmpOrder);
@@ -252,6 +254,10 @@ public final class ParseConnector {
         ParseObject tmpOrder = getOrderByID(orderID);
         tmpOrder.put("OrderStatus", orderStatusEnum.toString());
         tmpOrder.saveInBackground();
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("orderID",orderID);
+
+        ParseCloud.callFunctionInBackground("sendPushAfterOrderStatusDone", map);
 
     }
 
