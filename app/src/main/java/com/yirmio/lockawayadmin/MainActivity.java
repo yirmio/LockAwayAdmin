@@ -1,6 +1,7 @@
 package com.yirmio.lockawayadmin;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,9 +38,10 @@ public class MainActivity extends Activity {
         this.mBtnRefreshList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOrderList.clear();
-                mOrderList.addAll(ParseConnector.getActiveOtdersBL(LockAwayAdminApplication.getRestID()));
-                mAdapter.notifyDataSetChanged();
+                new UpdtaeOrdersListTask().execute("");
+//                mOrderList.clear();
+//                mOrderList.addAll(ParseConnector.getActiveOtdersBL(LockAwayAdminApplication.getRestID()));
+//                mAdapter.notifyDataSetChanged();
 //                mOrdersListView.invalidateViews();
 //                refreshOrders();
             }
@@ -47,14 +49,40 @@ public class MainActivity extends Activity {
 
     }
 
-    private void refreshOrders(){
-//        Boolean newOrders = LockAwayAdminApplication.refreshOrdersList();
-        this.mOrderList = ParseConnector.getActiveOtdersBL(LockAwayAdminApplication.getRestID());
-//        if (newOrders){
 
+
+    private class UpdtaeOrdersListTask extends AsyncTask<String,Void,String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            mOrderList.addAll(ParseConnector.getActiveOtdersBL(LockAwayAdminApplication.getRestID()));
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
             mAdapter.notifyDataSetChanged();
-        mOrdersListView.invalidateViews();
+        }
 
-//        }
+        @Override
+        protected void onPreExecute() {
+            mOrderList.clear();
+        }
     }
 }
+
+
+
+
+
+
+//    private void refreshOrders(){
+////        LockAwayAdminApplication.refreshOrdersList();
+//
+//        this.mOrderList = ParseConnector.getActiveOtdersBL(LockAwayAdminApplication.getRestID());
+////        if (newOrders){
+//
+//            mAdapter.notifyDataSetChanged();
+//        mOrdersListView.invalidateViews();
+//
+////        }
+//    }

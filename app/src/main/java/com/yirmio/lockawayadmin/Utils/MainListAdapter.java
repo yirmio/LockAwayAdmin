@@ -151,11 +151,11 @@ public class MainListAdapter extends ArrayAdapter {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-//                        ParseConnector.setOrderStatus(tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
+                        ParseConnector.setOrderStatus(tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
                     }
                 });
                 thread.start();
-                ParseConnector.setOrderStatus(tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
+//                ParseConnector.setOrderStatus(tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
                 //Update UI
                 notifyDataSetChanged();
             }
