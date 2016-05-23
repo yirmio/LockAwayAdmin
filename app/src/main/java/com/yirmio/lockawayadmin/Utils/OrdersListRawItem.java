@@ -34,7 +34,10 @@ public class OrdersListRawItem {
         this.clientETA = item.getClientETA();
     }
 
-public OrderStatusEnum getOrderStatusEnum(){return this.orderStatusEnum;}
+    public OrderStatusEnum getOrderStatusEnum() {
+        return this.orderStatusEnum;
+    }
+
     public float getPrice() {
         return price;
     }

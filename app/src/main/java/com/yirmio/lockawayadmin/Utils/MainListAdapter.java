@@ -106,7 +106,6 @@ public class MainListAdapter extends ArrayAdapter {
                         break;
                     case Finish:
                         holder.imgVwStatusIcon.setImageResource(R.drawable.ic_done_all);
-                        //TODO - refresh list
                         break;
                     default:
                         holder.imgVwStatusIcon.setImageResource(R.drawable.ic_android);
@@ -131,7 +130,6 @@ public class MainListAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 changeOrderStatus(tmpPos);
-
             }
         });
     }
@@ -176,3 +174,6 @@ public class MainListAdapter extends ArrayAdapter {
         String orderID;
     }
 }
+
+
+//TODO - ETA time is not good, missing numbers, convert to UTC

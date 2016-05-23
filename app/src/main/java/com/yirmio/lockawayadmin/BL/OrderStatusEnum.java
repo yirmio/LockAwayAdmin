@@ -12,7 +12,8 @@ public enum OrderStatusEnum {
     OnMake,
     Ready,
     WaitingToStart,
-    Finish;
+    Finish,
+    Canceled;
 
 
     public static String[] getAllValues(){

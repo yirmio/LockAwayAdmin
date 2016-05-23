@@ -9,8 +9,7 @@ import com.parse.ParsePushBroadcastReceiver;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.yirmio.lockawayadmin.MainActivity;
-import com.yirmio.lockawayadmin.Push.NotificationUtils;
+import com.yirmio.lockawayadmin.UI.MainActivity;
 
 /**
  * Created by oppenhime on 09/01/2016.

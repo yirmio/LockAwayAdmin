@@ -11,11 +11,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRole;
 import com.parse.ParseUser;
-import com.parse.PushService;
 import com.yirmio.lockawayadmin.BL.Order;
-import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
 import com.yirmio.lockawayadmin.DAL.ParseConnector;
-import com.yirmio.lockawayadmin.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

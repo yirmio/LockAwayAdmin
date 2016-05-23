@@ -3,25 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.yirmio.lockawayadmin.MainActivity">
+    tools:context=".UI.MainActivity">
 
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listView_Orders"
-        android:layout_above="@+id/btnRefreshList"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/linearLayout" />
 
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/refreshlist"
-        android:id="@+id/btnRefreshList"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout"
+        android:layout_margin="0dp">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/refreshlist"
+            android:id="@+id/btnRefreshList"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="33" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/menu_edit"
+            android:id="@+id/btnGoToMenuEdit"
+            android:layout_weight="33" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/cutomers_admin"
+            android:id="@+id/btnGoToCustomersArea"
+            android:layout_weight="33" />
+    </LinearLayout>
+
 </RelativeLayout>

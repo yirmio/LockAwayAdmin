@@ -4,4 +4,6 @@
     <string name="done">מוכן</string>
     <string name="changeStatus" >עדכן</string>
     <string name="refreshlist" >רענון</string>
+    <string name="menu_edit">עריכת תפריט</string>
+    <string name="cutomers_admin">משתמשים</string>
 </resources>

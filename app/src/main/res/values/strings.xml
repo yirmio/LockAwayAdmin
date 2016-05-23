@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">LockAwayAdmin</string>
     <string name="done">Done</string>
-    <string name="changeStatus" >Status</string>
-    <string name="refreshlist" >Resfresh</string>
+    <string name="changeStatus">Status</string>
+    <string name="refreshlist">Resfresh</string>
+    <string name="menu_edit">Edit Menu</string>
+    <string name="cutomers_admin">Customers</string>
 </resources>

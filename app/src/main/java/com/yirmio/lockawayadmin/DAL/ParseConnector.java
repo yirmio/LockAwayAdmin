@@ -58,6 +58,7 @@ public final class ParseConnector {
         query.whereNotEqualTo("OrderStatus", "Active");
         query.whereNotEqualTo("OrderStatus", "Finish");
 
+
         try {
             List<ParseObject> objects = query.find();
             if (objects.size() > 0) {
@@ -196,25 +197,13 @@ public final class ParseConnector {
     public static List<RestaurantMenuObject> getObjectsByOrderID(String orderId) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("OrderedObjects");//TODO Const
         query.whereEqualTo("OrderID", orderId);//TODO use const
-        final List<ParseObject> listRes = new ArrayList<>();
+        List<ParseObject> listRes = new ArrayList<>();
+        try {
+            listRes = query.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
-                    if (objects.size() > 0) {
-                        for (ParseObject pObj : objects) {
-                            listRes.add(pObj);
-                        }
-                    }
-
-                }
-
-
-            }
-
-
-        });
 
         if (listRes != null) {
             List<RestaurantMenuObject> menuObjects = new ArrayList<RestaurantMenuObject>();
@@ -233,21 +222,20 @@ public final class ParseConnector {
     }
 
     private static ParseObject getMenuObjectByID(String menuObjectID) {
-        final ParseObject[] tmpParseObject = {null};
-        List<ParseObject> tmpRes = null;
-
+//        List<ParseObject> tmpParseRes = null;
+        ParseObject tmpParseObject = null;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("MenuObjects"); //TODO use const
-        query.getInBackground(menuObjectID, new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    tmpParseObject[0] = object;
-                } else {
-//                            objectRetrievalFailed();
-                }
-            }
-        });
 
-        return tmpParseObject[0];
+        try {
+            tmpParseObject = query.get(menuObjectID);
+//            if (tmpParseRes.size() != 0){
+//                tmpParseObject = tmpParseRes.get(0);
+//            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return tmpParseObject;
     }
 
     public static void setOrderStatus(String orderID, OrderStatusEnum orderStatusEnum) {
