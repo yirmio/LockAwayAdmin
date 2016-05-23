@@ -2,14 +2,13 @@ package com.yirmio.lockawayadmin.UI;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.yirmio.lockawayadmin.R;
 
-public class MenuEdit extends Activity implements View.OnClickListener {
+public class MenuEditActivity extends Activity implements View.OnClickListener {
     private Button mAddItemBtn;
 
     @Override
@@ -29,7 +28,7 @@ public class MenuEdit extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.menu_edit_activity_Btn_add:
-                Intent attItemIntent = new Intent(MenuEdit.this,AddItemActivity.class);
+                Intent attItemIntent = new Intent(MenuEditActivity.this,AddItemActivity.class);
                 startActivity(attItemIntent);
                 break;
         }

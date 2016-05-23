@@ -14,10 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="הוספת פריט חדש לתפריט"
+        android:text="@string/add_new_item_to_menu"
         android:id="@+id/txtVw_AddMenuItem_Title"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -27,7 +28,7 @@
         android:textAlignment="center"
         android:typeface="monospace"
         android:layout_below="@+id/txtVw_AddMenuItem_Title"
-        android:hint="שם הפריט" />
+        android:hint="@string/hint_item_name" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -38,7 +39,7 @@
         android:textAlignment="center"
         android:typeface="monospace"
         android:lines="3"
-        android:hint="תאור המנה" />
+        android:hint="@string/hint_item_description" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -55,7 +56,7 @@
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="צמחוני"
+            android:text="@string/vegen"
             android:id="@+id/insertItemChckBxIsVeg"
             android:layout_below="@+id/insertItemEditTextTimeToMake"
             android:layout_alignParentRight="false"
@@ -66,7 +67,7 @@
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="זמין בתפריט"
+            android:text="@string/avalibale_in_menu"
             android:id="@+id/insertItemChckBxAvalibleInMemu"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/insertItemChckBxIsGlotenFree"
@@ -76,11 +77,18 @@
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="ללא גלוטן"
+            android:text="@string/gloten_free"
             android:id="@+id/insertItemChckBxIsGlotenFree"
             android:layout_below="@+id/insertItemEditTextTimeToMake"
             android:layout_toLeftOf="@+id/insertItemChckBxIsVeg"
             android:layout_toStartOf="@+id/insertItemChckBxIsVeg"
+            android:layout_weight="1" />
+
+        <CheckBox
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/on_sale"
+            android:id="@+id/insertItemChckBxIsSale"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -97,7 +105,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/insertItemEditTextPrice"
-            android:hint="מחיר"
+            android:hint="@string/price"
             android:layout_weight="1" />
 
         <EditText
@@ -108,7 +116,7 @@
             android:id="@+id/insertItemEditTextTimeToMake"
             android:textAlignment="center"
             android:typeface="monospace"
-            android:hint="זמן להכנת המנה בדקות"
+            android:hint="@string/time_to_make_in_min"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -141,7 +149,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="בחר תמונות"
+            android:text="@string/choos_photos"
             android:id="@+id/insertItemBtnAddImages"
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/txtVw_AddMenuItem_Title"
@@ -151,7 +159,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="שלח"
+            android:text="@string/send"
             android:id="@+id/insertItemBtnSend"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/insertItemEditTextTimeToMake"

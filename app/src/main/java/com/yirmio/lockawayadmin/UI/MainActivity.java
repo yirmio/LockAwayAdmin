@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(custIntent);
                 break;
             case R.id.btnGoToMenuEdit:
-                Intent intent = new Intent(MainActivity.this,MenuEdit.class);
+                Intent intent = new Intent(MainActivity.this,MenuEditActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btnRefreshList:

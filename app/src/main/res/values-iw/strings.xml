@@ -7,4 +7,21 @@
     <string name="menu_edit">עריכת תפריט</string>
     <string name="cutomers_admin">משתמשים</string>
     <string name="add_menu_object">הוספת מנה לתפריט</string>
+    <string name="add_new_item_to_menu">הוספת פריט חדש לתפריט</string>
+    <string name="check_item">חלק מהשדות לא מולאו כנדרש</string>
+    <string name="hint_item_name">שם הפריט</string>
+    <string name="hint_item_description">תאור המנה</string>
+    <string name="time_to_make_in_min">זמן להכנת המנה בדקות</string>
+    <string name="price">מחיר</string>
+    <string name="send">שלח</string>
+    <string name="choos_photos">בחר תמונות</string>
+    <string name="avalibale_in_menu">זמין בתפריט</string>
+    <string name="vegen">צמחוני</string>
+    <string name="gloten_free">ללא גלוטן</string>
+    <string name="on_sale">מבצע</string>
+    <string name="error_saving_object">בעיה בשמירת הפריט</string>
+    <string name="error_uploading_photo">בעיה בהעלאת תמונה</string>
+    <string name="error_uploading_photo_object">בעיה בשמירת התמונה</string>
+    <string name="object_saved">הפריט נשמר בהצלחה</string>
+    <string name="photo_uploaded">התמונה הועלתה בהצלחה לשרת</string>
 </resources>

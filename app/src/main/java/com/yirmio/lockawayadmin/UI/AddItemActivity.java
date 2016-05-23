@@ -32,7 +32,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
-import com.yirmio.lockawayadmin.BL.MenuItemTypesEnum;
+
 import com.yirmio.lockawayadmin.DAL.ParseConnector;
 import com.yirmio.lockawayadmin.R;
 import com.yirmio.lockawayadmin.Utils.LockAwayAdminApplication;
@@ -54,6 +54,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
     private CheckBox checkBoxIsGlotenFree;
     private CheckBox checkBoxIsVeg;
     private CheckBox checkBoxIsAvalible;
+    private CheckBox checkBoxIsOnSale;
     private ImageView imgViewPhoto;
     private Button btnSend;
     private Button btnChoosePhotos;
@@ -91,6 +92,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
                             ) {
                         Toast.makeText(getApplicationContext(), R.string.check_item, Toast.LENGTH_SHORT).show();
                     } else {
+                        //TODO - do async task with progress bar
                         final ParseObject newItem = new ParseObject("MenuObjects");
                         newItem.put("StoreID", LockAwayAdminApplication.getRestID());
                         newItem.put("Name", editTextName.getText().toString());
@@ -99,13 +101,14 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
                         newItem.put("GlotenFree", checkBoxIsGlotenFree.isChecked());
                         newItem.put("TimeToMake", Integer.parseInt(editTextTimeToMake.getText().toString()));
                         newItem.put("IsAvaliable", checkBoxIsAvalible.isChecked());
+                        newItem.put("IsOnSale", checkBoxIsOnSale.isChecked());
                         newItem.put("Description", editTextDescription.getText().toString());
                         newItem.put("ObjectType", ParseConnector.getMenuObjectTyprIDByName(spnrItemType.getSelectedItem().toString()));
                         newItem.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(ParseException e) {
                                 if (e == null) {
-                                    Toast.makeText(getApplicationContext(), "Object Saved", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), R.string.object_saved, Toast.LENGTH_SHORT).show();
                                     final ParseObject photoObject = new ParseObject("MenuPhotos");
                                     Bitmap bitmap = ((BitmapDrawable) imgViewPhoto.getDrawable()).getBitmap();
                                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -121,17 +124,17 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
                                             public void done(ParseException e) {
                                                 if (e == null) {
                                                     photoObject.put("PhotoFile", file);
-                                                    Toast.makeText(getApplicationContext(), "Photo uploaded", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getApplicationContext(), R.string.photo_uploaded, Toast.LENGTH_SHORT).show();
                                                     //Close Current activity
                                                     finish();
                                                 } else {
-                                                    Toast.makeText(getApplicationContext(), "Error uploading photo", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getApplicationContext(), R.string.error_uploading_photo, Toast.LENGTH_SHORT).show();
                                                 }
                                                 photoObject.saveInBackground(new SaveCallback() {
                                                     @Override
                                                     public void done(ParseException e) {
                                                         if (e != null) {
-                                                            Toast.makeText(getApplicationContext(), "Error saving photo object", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(getApplicationContext(), R.string.error_uploading_photo_object, Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
                                                 });
@@ -140,7 +143,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
 
                                     }
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Error saving object", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), R.string.error_saving_object, Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -156,28 +159,25 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
     }
 
     private void attachUI() {
+        //Checkboxes
         this.checkBoxIsAvalible = (CheckBox) findViewById(R.id.insertItemChckBxAvalibleInMemu);
         this.checkBoxIsGlotenFree = (CheckBox) findViewById(R.id.insertItemChckBxIsGlotenFree);
         this.checkBoxIsVeg = (CheckBox) findViewById(R.id.insertItemChckBxIsVeg);
-//Edit Text
+        this.checkBoxIsOnSale = (CheckBox)findViewById(R.id.insertItemChckBxIsSale);
+        //Edit Text
         this.editTextDescription = (EditText) findViewById(R.id.insertItemEditTextDescription);
         this.editTextName = (EditText) findViewById(R.id.insertItemEditTextName);
         this.editTextTimeToMake = (EditText) findViewById(R.id.insertItemEditTextTimeToMake);
         this.editTextPrive = (EditText) findViewById(R.id.insertItemEditTextPrice);
-//ImageView
+        //ImageView
         this.imgViewPhoto = (ImageView) findViewById(R.id.insertItemImgViewPhoto);
-//Buttons
+        //Buttons
         this.btnChoosePhotos = (Button) findViewById(R.id.insertItemBtnAddImages);
         this.btnChoosePhotos.setOnClickListener(this);
         this.btnSend = (Button) findViewById(R.id.insertItemBtnSend);
         this.btnSend.setOnClickListener(this);
         //Spinner
         this.spnrItemType = (Spinner)findViewById(R.id.addItemTypeSpinner);
-//        List<String> items = new ArrayList<>();
-//        for (Object o :
-//                MenuItemTypesEnum.getAllValues()) {
-//            items.add(o.toString());
-//        }
         String[] items = ParseConnector.getAllMenuObjectTypeNames();
         this.mTypeSpnrAdptr = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,items);
         this.spnrItemType.setAdapter(this.mTypeSpnrAdptr);

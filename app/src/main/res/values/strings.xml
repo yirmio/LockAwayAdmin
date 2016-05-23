@@ -7,4 +7,20 @@
     <string name="cutomers_admin">Customers</string>
     <string name="add_menu_object">Add Menu Object</string>
     <string name="check_item">Some Fields Are Missing</string>
+    <string name="add_new_item_to_menu">Add New Item To Menu</string>
+    <string name="hint_item_name">Item Name</string>
+    <string name="hint_item_description">Item Desciption</string>
+    <string name="price">Price</string>
+    <string name="time_to_make_in_min">Time To Make (In min.)</string>
+    <string name="choos_photos">Choose Photos</string>
+    <string name="send">Send</string>
+    <string name="vegen">Vegen</string>
+    <string name="avalibale_in_menu" >Avaliable In Menu</string>
+    <string name="gloten_free">Gloten Free</string>
+    <string name="on_sale">On Sale</string>
+    <string name="object_saved">Object Saved</string>
+    <string name="photo_uploaded">Photo uploaded</string>
+    <string name="error_uploading_photo">Error uploading photo</string>
+    <string name="error_uploading_photo_object">Error saving photo object</string>
+    <string name="error_saving_object">Error saving object</string>
 </resources>
