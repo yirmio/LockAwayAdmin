@@ -11,6 +11,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRole;
 import com.parse.ParseUser;
+import com.yirmio.lockawayadmin.BL.MenuItemTypesEnum;
 import com.yirmio.lockawayadmin.BL.Order;
 import com.yirmio.lockawayadmin.DAL.ParseConnector;
 
@@ -24,6 +25,7 @@ public class LockAwayAdminApplication extends Application {
 
     private static String restID = "g1bzMQEXoj";
     private static ArrayList<Order> allOrders;
+    public static MenuItemTypesEnum menuItemTypesEnum;
     ParseUser usr = null;
     //public static OrderStatusEnum staticOrderStatusEnum;
 
@@ -34,6 +36,7 @@ public class LockAwayAdminApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
 
         // Enable Local Datastore.
 //        Parse.enableLocalDatastore(this);
@@ -82,8 +85,7 @@ public class LockAwayAdminApplication extends Application {
 
         allOrders = new ArrayList<Order>();
 //        this.refreshOrders();
-        //TODO - log to server
-    }
+        ParseConnector.initObjectTypes();    }
 
     private void refreshOrders() {
         ArrayList<ParseObject> orders = ParseConnector.getActiveOrders(restID);

@@ -1,6 +1,7 @@
 package com.yirmio.lockawayadmin.UI;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ListView mOrdersListView;
     private Button mBtnRefreshList;
     private Button mBtnMenuEdit;
+    private Button mBtnUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +37,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         this.mBtnRefreshList = (Button) findViewById(R.id.btnRefreshList);
         this.mBtnRefreshList.setOnClickListener(this);
-//        this.mBtnRefreshList.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                new UpdtaeOrdersListTask().execute("");
-//            }
-//        });
         this.mBtnMenuEdit = (Button) findViewById(R.id.btnGoToMenuEdit);
         this.mBtnMenuEdit.setOnClickListener(this);
+        this.mBtnUsers = (Button)findViewById(R.id.btnGoToCustomersArea);
+        this.mBtnUsers.setOnClickListener(this);
 
     }
 
@@ -50,8 +48,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnGoToCustomersArea:
+                Intent custIntent = new Intent(MainActivity.this,UsersActivity.class);
+                startActivity(custIntent);
                 break;
             case R.id.btnGoToMenuEdit:
+                Intent intent = new Intent(MainActivity.this,MenuEdit.class);
+                startActivity(intent);
                 break;
             case R.id.btnRefreshList:
                 new UpdtaeOrdersListTask().execute("");

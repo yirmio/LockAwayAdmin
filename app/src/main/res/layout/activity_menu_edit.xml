@@ -23,9 +23,9 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button" />
+            android:text="@string/add_menu_object"
+            android:id="@+id/menu_edit_activity_Btn_add" />
     </LinearLayout>
 </RelativeLayout>

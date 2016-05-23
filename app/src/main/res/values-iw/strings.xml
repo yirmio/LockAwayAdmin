@@ -6,4 +6,5 @@
     <string name="refreshlist" >רענון</string>
     <string name="menu_edit">עריכת תפריט</string>
     <string name="cutomers_admin">משתמשים</string>
+    <string name="add_menu_object">הוספת מנה לתפריט</string>
 </resources>

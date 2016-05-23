@@ -13,6 +13,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.yirmio.lockawayadmin.BL.MenuItemTypesEnum;
 import com.yirmio.lockawayadmin.BL.Order;
 import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
 import com.yirmio.lockawayadmin.BL.RestaurantMenuObject;
@@ -36,6 +37,57 @@ public final class ParseConnector {
     private static ParseObject rest;
     private static String TAG = "In ParseConnector Class";
     private static boolean tmpResult = false;
+
+    private static HashMap<String,String> objectsTypesToId = new HashMap<>();
+    private static HashMap<String,String> objectsIDToTypes = new HashMap<>();
+    private static String[] allTypes;
+
+    //Get ObjectType From id
+    public static String getMenuObjectTyprIDByName(String name){
+        String itemType = objectsTypesToId.get(name);
+        return itemType;
+    }
+    public static String getMenuTypeNameByID(String id){
+        return objectsIDToTypes.get(id);
+    }
+    public static String[] getAllMenuObjectTypeNames(){
+        if (allTypes != null){
+            return allTypes;
+        }
+        else {
+            return null;
+        }
+    }
+    //query all object types and init hash map
+    public static boolean initObjectTypes() {
+        boolean res = true;
+        String tmpStr;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("MenuObjectTypes");
+        try {
+            List<ParseObject> objects = query.find();
+            if (objects.size() > 0) {
+                int counter = 0;
+                allTypes = new String[objects.size()];
+                for (ParseObject o : objects) {
+                    tmpStr = o.getString("TypeName");
+                    if (tmpStr != null) {
+                        objectsIDToTypes.put(o.getObjectId(),tmpStr);
+                        objectsTypesToId.put(tmpStr,o.getObjectId());
+                        allTypes[counter] = tmpStr;
+                    }
+                    counter++;
+                }
+
+            } else {
+                res = false;
+            }
+        } catch (ParseException e) {
+            res = false;
+        }
+
+
+        return res;
+    }
 
     public static ArrayList getActiveOtdersBL(String resturantID) {
         ArrayList<Order> resBL = new ArrayList();

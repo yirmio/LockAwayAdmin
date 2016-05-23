@@ -10,14 +10,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/listView_Orders"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/linearLayout" />
+        android:layout_above="@+id/insertItemCheckboxs" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:id="@+id/linearLayout"
+        android:id="@+id/insertItemCheckboxs"
         android:layout_margin="0dp">
 
         <Button

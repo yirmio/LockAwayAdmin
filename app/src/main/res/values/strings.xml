@@ -5,4 +5,6 @@
     <string name="refreshlist">Resfresh</string>
     <string name="menu_edit">Edit Menu</string>
     <string name="cutomers_admin">Customers</string>
+    <string name="add_menu_object">Add Menu Object</string>
+    <string name="check_item">Some Fields Are Missing</string>
 </resources>
