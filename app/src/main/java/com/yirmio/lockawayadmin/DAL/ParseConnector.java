@@ -17,6 +17,7 @@ import com.yirmio.lockawayadmin.BL.MenuItemTypesEnum;
 import com.yirmio.lockawayadmin.BL.Order;
 import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
 import com.yirmio.lockawayadmin.BL.RestaurantMenuObject;
+import com.yirmio.lockawayadmin.Utils.LockAwayAdminApplication;
 
 
 import java.util.ArrayList;
@@ -378,8 +379,9 @@ public final class ParseConnector {
             String id = obj.getObjectId();
             String type;
             //TODO handle real type
-            if (obj.getParseObject("Type") != null) {
-                type = (obj.getParseObject("Type")).getString("TypeName");
+            if (obj.getString("ObjectType") != null) {
+                type = getMenuTypeNameByID(obj.getString("ObjectType"));
+//                type = (obj.getParseObject("Type")).getString("TypeName");
             } else {
                 type = "No Type";
             }
@@ -400,6 +402,37 @@ public final class ParseConnector {
             return null;
         }
 
+
+    }
+
+    public static List<RestaurantMenuObject> getAllMenuItems() {
+        List<RestaurantMenuObject> results = new ArrayList<RestaurantMenuObject>();
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(MENU_OBJECT_ATTRIBUTE);
+        query.whereEqualTo(STORE_ID_ATTRIBUTE, LockAwayAdminApplication.getRestID());
+        try {
+            List<ParseObject> list = query.find();
+            if (list.size() > 0) {
+                for (ParseObject obj : list) {
+                    results.add(CreateMenuItemFromParseObject(obj));
+                }
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return results;
+    }
+
+    public static boolean deleteObjectItem(String idToDelete) {
+        boolean res = true;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("MenuObjects");
+        try {
+            ParseObject objToDel = query.get(idToDelete);
+            objToDel.delete();
+        } catch (ParseException e) {
+            res = false;
+        }
+        return  res;
 
     }
 

@@ -270,7 +270,12 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         //bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(picturePath, bmOptions);
-        Bitmap bitmap = BitmapFactory.decodeFile(picturePath, bmOptions);
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeFile(picturePath, bmOptions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         int imgViewWidth = imgView.getWidth();
         int imgViewHeight = imgView.getHeight();

@@ -9,18 +9,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".UI.MenuEditActivity">
 
-    <ListView
+    <Spinner
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mnuEditActivity_spinner"
+        android:layout_alignParentTop="true" />
+
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/listView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/mnuEditActivity_listView"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/mnuEditActivity_spinner"
+        android:layout_above="@+id/mnuEditActivity_BtnsLayout"/>
+
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/mnuEditActivity_BtnsLayout"
+        android:layout_marginTop="5dp">
 
         <Button
             android:layout_width="match_parent"

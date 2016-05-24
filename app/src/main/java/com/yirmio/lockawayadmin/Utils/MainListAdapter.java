@@ -2,10 +2,8 @@ package com.yirmio.lockawayadmin.Utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import com.yirmio.lockawayadmin.DAL.ParseConnector;
 import com.yirmio.lockawayadmin.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by oppenhime on 07/12/2015.
@@ -46,7 +43,7 @@ public class MainListAdapter extends ArrayAdapter {
 
         //First time view
         if (convertView == null) {
-            viewToUse = mInflater.inflate(R.layout.single_row_layout, null);
+            viewToUse = mInflater.inflate(R.layout.single_orders_row_layout, null);
             holder = new ViewHolder();
             setViewItems(holder, viewToUse, parent, position);    //Connect UI to holder properties
 

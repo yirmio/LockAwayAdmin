@@ -24,4 +24,12 @@
     <string name="error_uploading_photo_object">בעיה בשמירת התמונה</string>
     <string name="object_saved">הפריט נשמר בהצלחה</string>
     <string name="photo_uploaded">התמונה הועלתה בהצלחה לשרת</string>
+    <string name="del_object">מחק פריט</string>
+    <string name="edit_object">ערוך פריט</string>
+    <string name="are_you_sure">האם אתה בטוח?</string>
+    <string name="no">לא</string>
+    <string name="yes">כן</string>
+    <string name="wait_deleting_item">אנא המתן לסיום מחיקת הפריט מהתפריט...</string>
+    <string name="item_deleted">הפריט נמחק מהתפריט בהצלחה!</string>
+    <string name="wait_refreshing_list">אנא המתן בעת ריענון הרשימה...</string>
 </resources>

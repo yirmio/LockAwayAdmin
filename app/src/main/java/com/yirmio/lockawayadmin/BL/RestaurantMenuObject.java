@@ -1,5 +1,7 @@
 package com.yirmio.lockawayadmin.BL;
 
+import android.widget.ImageView;
+
 import com.parse.ParseFile;
 import com.yirmio.lockawayadmin.Utils.OrdersListRawItem;
 
@@ -18,6 +20,7 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     private boolean isVeg;
     private boolean isGlootenFree;
     private String id;
+    private ImageView image;
 
 
 //endregion
@@ -142,6 +145,14 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
         if (this.timeToMake < another.timeToMake) {
             return -1;
         } else return 1;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
+
+    public void setImage(ImageView image) {
+        this.image = image;
     }
     //endregion
 }

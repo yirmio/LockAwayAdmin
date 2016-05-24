@@ -23,4 +23,13 @@
     <string name="error_uploading_photo">Error uploading photo</string>
     <string name="error_uploading_photo_object">Error saving photo object</string>
     <string name="error_saving_object">Error saving object</string>
+    <string name="del_object">Delete Object</string>
+    <string name="edit_object">Edit Object</string>
+    <string name="are_you_sure">Are You Sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="item_deleted">Item Deleted!</string>
+    <string name="wait_deleting_item">Please wait while deleting items from menu...</string>
+    <string name="wait_refreshing_list">Please wait while refreshing the list...</string>
+
 </resources>

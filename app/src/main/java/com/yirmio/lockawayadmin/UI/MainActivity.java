@@ -1,6 +1,7 @@
 package com.yirmio.lockawayadmin.UI;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mOrderList = ParseConnector.getActiveOtdersBL(LockAwayAdminApplication.getRestID());
-        mAdapter = new MainListAdapter(this, R.layout.single_row_layout, mOrderList);
+        mAdapter = new MainListAdapter(this, R.layout.single_orders_row_layout, mOrderList);
         mOrdersListView = (ListView) findViewById(R.id.listView_Orders);
         mOrdersListView.setAdapter(mAdapter);
 
@@ -56,7 +57,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.btnRefreshList:
-                new UpdtaeOrdersListTask().execute("");
+                new UpdtaeOrdersListTask(this).execute("");
                 break;
 
         }
@@ -64,6 +65,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     private class UpdtaeOrdersListTask extends AsyncTask<String, Void, String> {
+        ProgressDialog dialog;
+        public UpdtaeOrdersListTask(MainActivity activity){
+            dialog = new ProgressDialog(activity);
+        };
         @Override
         protected String doInBackground(String... strings) {
             mOrderList.addAll(ParseConnector.getActiveOtdersBL(LockAwayAdminApplication.getRestID()));
@@ -73,10 +78,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             mAdapter.notifyDataSetChanged();
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
         }
+
 
         @Override
         protected void onPreExecute() {
+            dialog.setMessage(getResources().getString(R.string.wait_refreshing_list));
+            dialog.show();
             mOrderList.clear();
         }
     }

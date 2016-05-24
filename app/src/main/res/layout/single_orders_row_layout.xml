@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/backgroundColor">
 
     <ImageView
@@ -17,43 +17,11 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/statusAndUserName"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentEnd="false"
-        android:layout_marginLeft="5dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:gravity="center">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/changeStatus"
-            android:id="@+id/buttonDone"
-            android:layout_below="@+id/textViewUserName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="User Name"
-            android:id="@+id/textViewUserName"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/details"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/statusAndUserName"
         android:layout_toLeftOf="@+id/imageViewUserStatus"
-        android:layout_alignWithParentIfMissing="true">
+        android:layout_alignWithParentIfMissing="false">
 
         <TextView
             android:layout_width="wrap_content"
@@ -139,6 +107,38 @@
             android:layout_alignBottom="@+id/textViewTotalItemsInOrderLable"
             android:layout_toRightOf="@+id/textViewTotalItemsInOrderLable"
             android:layout_marginLeft="5dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/statusAndUserName"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/changeStatus"
+            android:id="@+id/buttonDone"
+            android:layout_below="@+id/textViewUserName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="User Name"
+            android:id="@+id/textViewUserName"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp" />
 
     </RelativeLayout>
 
