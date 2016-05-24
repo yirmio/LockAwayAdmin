@@ -18,11 +18,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.yirmio.lockawayadmin.BL.RestaurantMenu;
 import com.yirmio.lockawayadmin.BL.RestaurantMenuObject;
 import com.yirmio.lockawayadmin.DAL.ParseConnector;
 import com.yirmio.lockawayadmin.R;
-import com.yirmio.lockawayadmin.Utils.LockAwayAdminApplication;
 import com.yirmio.lockawayadmin.Utils.MenuListAdapter;
 
 import java.util.ArrayList;
@@ -62,7 +60,7 @@ public class MenuEditActivity extends Activity implements View.OnClickListener, 
         //ListView
         this.mItemsListView = (ListView)findViewById(R.id.mnuEditActivity_listView);
         this.menuObjectsList = ParseConnector.getAllMenuItems();
-        this.listAdapter = new MenuListAdapter(this,R.layout.signle_menu_row_layout,menuObjectsList,this);
+        this.listAdapter = new MenuListAdapter(this,R.layout.single_menu_row_layout,menuObjectsList,this);
         this.mItemsListView.setAdapter(this.listAdapter);
         this.mItemsListView.setOnItemClickListener(this);
 
@@ -132,6 +130,13 @@ public class MenuEditActivity extends Activity implements View.OnClickListener, 
         DeleteInBackgroundTask delTask = new DeleteInBackgroundTask(this,idToDelete);
         delTask.execute();
 //        Toast.makeText(this,getResources().getString(R.string.item_deleted),Toast.LENGTH_SHORT).show();
+    }
+
+    public void editItem(String idToEdit) {
+        Intent goToEditItemIntent = new Intent(MenuEditActivity.this,EditItemActivity.class);
+        goToEditItemIntent.putExtra("ItemID",idToEdit);
+        startActivity(goToEditItemIntent);
+
     }
 
     private class DeleteInBackgroundTask extends AsyncTask <Void,Void,Void>{

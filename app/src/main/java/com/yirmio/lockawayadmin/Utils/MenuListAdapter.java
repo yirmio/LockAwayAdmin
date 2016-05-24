@@ -58,7 +58,7 @@ public class MenuListAdapter extends ArrayAdapter implements Filterable, View.On
         View updateView;
         ViewHolder viewHolder;
         if (view == null){
-            updateView = mLayoutInflater.inflate(R.layout.signle_menu_row_layout,null);
+            updateView = mLayoutInflater.inflate(R.layout.single_menu_row_layout,null);
             viewHolder = new ViewHolder();
             viewHolder.mImageViewObjectPhoto = (ImageView) updateView.findViewById(R.id.rowItem_Object_imageView);
             viewHolder.mTxtViewTitle = (TextView)updateView.findViewById(R.id.rowItem_Object_textViewTitle);
@@ -101,7 +101,8 @@ public class MenuListAdapter extends ArrayAdapter implements Filterable, View.On
                 parentActivity.delItem(idToDelete);
                 break;
             case R.id.rowItem_Object_BtnEdit:
-                //TODO - edit item
+                String idToEdit = getItem(Integer.valueOf(view.getTag().toString())).getId();
+                parentActivity.editItem(idToEdit);
                 break;
 
         }

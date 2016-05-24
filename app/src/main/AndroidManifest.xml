@@ -55,6 +55,7 @@
         <!-- Push Notification -->
         <activity android:name=".UI.UsersActivity" />
         <activity android:name=".UI.MenuEditActivity" />
+        <activity android:name=".UI.EditItemActivity"/>
         <activity android:name=".UI.AddItemActivity"></activity>
     </application>
 

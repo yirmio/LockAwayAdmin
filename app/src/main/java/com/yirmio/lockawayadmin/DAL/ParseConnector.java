@@ -274,7 +274,7 @@ public final class ParseConnector {
 
     }
 
-    private static ParseObject getMenuObjectByID(String menuObjectID) {
+    public static ParseObject getMenuObjectByID(String menuObjectID) {
 //        List<ParseObject> tmpParseRes = null;
         ParseObject tmpParseObject = null;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("MenuObjects"); //TODO use const
@@ -376,6 +376,7 @@ public final class ParseConnector {
             String storeID = obj.getString("StoreID");
             String description = obj.getString("Description");
             boolean isGlotenFree = obj.getBoolean("GlotenFree");
+            boolean isOnSale = obj.getBoolean("IsOnSale");
             String id = obj.getObjectId();
             String type;
             //TODO handle real type
@@ -395,7 +396,7 @@ public final class ParseConnector {
 //                    tmpFile = getImagesFilesForObject(obj.getObjectId(), 1).get(0);
 //                }
 //            }
-            return new RestaurantMenuObject(id, description, price, title, timeToMake, type, isVeg, isGlotenFree);
+            return new RestaurantMenuObject(id, description, price, title, timeToMake, type, isVeg, isGlotenFree,isAvaliable,isOnSale);
 //            return new RestaurantMenuObject(id, description, price, title, timeToMake, tmpFile, type, isVeg, isGlotenFree);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -434,6 +435,36 @@ public final class ParseConnector {
         }
         return  res;
 
+    }
+
+    public static RestaurantMenuObject getResturantMenuObjectByID(String itemID) {
+        ParseObject tmpItemToReturn= getMenuObjectByID(itemID);
+        RestaurantMenuObject itemToReturn = CreateMenuItemFromParseObject(tmpItemToReturn);
+        return itemToReturn;
+    }
+
+    public static boolean saveEditedObject(RestaurantMenuObject item) {
+        boolean res = true;
+        ParseObject objToSave = getMenuObjectByID(item.getId());
+        objToSave.put("StoreID", LockAwayAdminApplication.getRestID());
+        objToSave.put("Name", item.getTitle());
+        objToSave.put("Price", item.getPrice());
+        objToSave.put("Veg", item.isVeg());
+        objToSave.put("GlotenFree", item.isGlootenFree());
+        objToSave.put("TimeToMake", item.getTimeToMake());
+        objToSave.put("IsAvaliable", item.isAvaliable());
+        objToSave.put("IsOnSale", item.isOnSale());
+        objToSave.put("Description", item.getDescription());
+        objToSave.put("ObjectType", getMenuObjectTyprIDByName(item.getType()));
+
+        try {
+            objToSave.save();
+        } catch (ParseException e) {
+            res = false;
+        }
+
+
+        return res;
     }
 
 //    public static boolean addObjectToOrder(String id, String orderID) {

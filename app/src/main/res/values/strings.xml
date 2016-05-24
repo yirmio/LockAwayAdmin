@@ -32,5 +32,7 @@
     <string name="wait_deleting_item">Please wait while deleting items from menu...</string>
     <string name="wait_refreshing_list">Please wait while refreshing the list...</string>
     <string name="time_to_make">Total Time To Make:</string>
+    <string name="edit_item_lable">Edit Item</string>
+    <string name="wait_saving_item">Please wait while saving item...</string>
 
 </resources>

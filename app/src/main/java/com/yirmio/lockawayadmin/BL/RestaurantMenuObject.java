@@ -3,7 +3,6 @@ package com.yirmio.lockawayadmin.BL;
 import android.widget.ImageView;
 
 import com.parse.ParseFile;
-import com.yirmio.lockawayadmin.Utils.OrdersListRawItem;
 
 /**
  * Created by yirmio on 1/9/2015.
@@ -21,6 +20,8 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
     private boolean isGlootenFree;
     private String id;
     private ImageView image;
+    private boolean isAvaliable;
+    private boolean isOnSale;
 
 
 //endregion
@@ -43,7 +44,7 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
 //        this.id = item.getId();
 //    }
 
-    public RestaurantMenuObject(String itemID, String desc, float price, String title, int timeToMake, String type, boolean isVeg, boolean isGlootenFree) {
+    public RestaurantMenuObject(String itemID, String desc, float price, String title, int timeToMake, String type, boolean isVeg, boolean isGlootenFree, boolean isAvalabe,boolean onSale) {
 
         this.price = price;
         this.title = title;
@@ -55,6 +56,8 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
         this.isVeg = isVeg;
         this.isGlootenFree = isGlootenFree;
         this.id = itemID;
+        this.isAvaliable = isAvalabe;
+        this.isOnSale = onSale;
 
     }
     //endregion
@@ -153,6 +156,22 @@ public class RestaurantMenuObject implements Comparable<RestaurantMenuObject> {
 
     public void setImage(ImageView image) {
         this.image = image;
+    }
+
+    public boolean isAvaliable() {
+        return isAvaliable;
+    }
+
+    public void setAvaliable(boolean avaliable) {
+        this.isAvaliable = avaliable;
+    }
+
+    public boolean isOnSale() {
+        return isOnSale;
+    }
+
+    public void setOnSale(boolean onSale) {
+        this.isOnSale = onSale;
     }
     //endregion
 }

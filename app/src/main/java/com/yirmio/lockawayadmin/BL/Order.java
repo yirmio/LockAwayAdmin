@@ -69,7 +69,7 @@ public class Order {
         if (parseObjects != null) {
             for (ParseObject o : parseObjects) {
                 tmpRestObj = new RestaurantMenuObject(o.getObjectId(), o.getString("Description"), o.getNumber("Price").floatValue(), o.getString("Name")
-                        , o.getNumber("TimeToMake").intValue(), o.getString("Type"), o.getBoolean("Veg"), o.getBoolean("GlotenFree"));
+                        , o.getNumber("TimeToMake").intValue(), o.getString("Type"), o.getBoolean("Veg"), o.getBoolean("GlotenFree"),o.getBoolean("IsAvaliable"),o.getBoolean("IsOnSale"));
                 this.itemsByOrderToMake.add(tmpRestObj);
             }
             return this.itemsByOrderToMake;

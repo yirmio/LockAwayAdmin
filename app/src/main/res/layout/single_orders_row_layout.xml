@@ -2,143 +2,153 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" android:layout_height="wrap_content"
     android:background="@color/backgroundColor"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center_vertical"
-    android:weightSum="7">
+    android:weightSum="3">
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/details"
+            android:layout_weight="3"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="ETA:"
+                android:id="@+id/textViewETALable"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="false"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="12:55"
+                android:id="@+id/textViewETAValue"
+                android:layout_alignParentTop="false"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/textViewETALable"
+                android:singleLine="true"
+                android:layout_alignTop="@+id/textViewETALable" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/time_to_make"
+                android:id="@+id/textViewTimeToMakeLable"
+                android:layout_below="@+id/textViewETALable"
+                android:singleLine="false"
+                android:layout_alignLeft="@+id/textViewETALable" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="5 min"
+                android:id="@+id/textViewTimeToMakeValue"
+                android:layout_alignBottom="@+id/textViewTimeToMakeLable"
+                android:layout_toRightOf="@+id/textViewTimeToMakeLable"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Time To Start Making Order:"
+                android:id="@+id/textViewTimeToStartMakingOrderLable"
+                android:layout_alignLeft="@+id/textViewTimeToMakeLable"
+                android:layout_below="@+id/textViewTimeToMakeLable"
+                android:singleLine="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="12:55"
+                android:id="@+id/textViewTimeToStartMakingOrderValue"
+                android:layout_alignBottom="@+id/textViewTimeToStartMakingOrderLable"
+                android:layout_toRightOf="@+id/textViewTimeToStartMakingOrderLable"
+                android:layout_marginLeft="5dp"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Total Items In Order:"
+                android:id="@+id/textViewTotalItemsInOrderLable"
+                android:layout_below="@+id/textViewTimeToStartMakingOrderLable"
+                android:layout_alignLeft="@+id/textViewTimeToStartMakingOrderLable"
+                android:singleLine="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="5"
+                android:id="@+id/textViewTotalItemsInOrderValue"
+                android:layout_alignBottom="@+id/textViewTotalItemsInOrderLable"
+                android:layout_toRightOf="@+id/textViewTotalItemsInOrderLable"
+                android:layout_marginLeft="5dp"
+                android:singleLine="true" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:id="@+id/imageViewUserStatus"
+            android:src="@drawable/ic_directions_car"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:id="@+id/statusAndUserName"
-        android:layout_weight="2"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:weightSum="2"
+        android:gravity="center_vertical">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/changeStatus"
             android:id="@+id/buttonDone"
-            android:layout_below="@+id/textViewUserName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp" />
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/textViewUserName"
+            android:layout_weight="1"
+            android:layout_margin="0dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="User Name"
             android:id="@+id/textViewUserName"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/details"
-        android:layout_weight="4"
-        android:layout_gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="ETA:"
-            android:id="@+id/textViewETALable"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="false"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:singleLine="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="12:55"
-            android:id="@+id/textViewETAValue"
             android:layout_alignParentTop="false"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/textViewETALable"
-            android:singleLine="true" />
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:layout_margin="0dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/time_to_make"
-            android:id="@+id/textViewTimeToMakeLable"
-            android:paddingLeft="5dp"
-            android:layout_below="@+id/textViewETALable"
-            android:layout_alignLeft="@+id/textViewETALable"
-            android:singleLine="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="5 min"
-            android:id="@+id/textViewTimeToMakeValue"
-            android:layout_alignBottom="@+id/textViewTimeToMakeLable"
-            android:layout_toRightOf="@+id/textViewTimeToMakeLable"
-            android:singleLine="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Time To Start Making Order:"
-            android:id="@+id/textViewTimeToStartMakingOrderLable"
-            android:paddingLeft="5dp"
-            android:layout_alignLeft="@+id/textViewTimeToMakeLable"
-            android:layout_below="@+id/textViewTimeToMakeLable"
-            android:singleLine="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="12:55"
-            android:id="@+id/textViewTimeToStartMakingOrderValue"
-            android:layout_alignBottom="@+id/textViewTimeToStartMakingOrderLable"
-            android:layout_toRightOf="@+id/textViewTimeToStartMakingOrderLable"
-            android:layout_marginLeft="5dp"
-            android:singleLine="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Total Items In Order:"
-            android:id="@+id/textViewTotalItemsInOrderLable"
-            android:paddingLeft="5dp"
-            android:layout_below="@+id/textViewTimeToStartMakingOrderLable"
-            android:layout_alignLeft="@+id/textViewTimeToStartMakingOrderLable"
-            android:singleLine="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="5"
-            android:id="@+id/textViewTotalItemsInOrderValue"
-            android:layout_alignBottom="@+id/textViewTotalItemsInOrderLable"
-            android:layout_toRightOf="@+id/textViewTotalItemsInOrderLable"
-            android:layout_marginLeft="5dp"
-            android:singleLine="true" />
-
-    </RelativeLayout>
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:id="@+id/imageViewUserStatus"
-        android:src="@drawable/ic_directions_car"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical" />
+    </LinearLayout>
 
 </LinearLayout>
