@@ -134,9 +134,9 @@ public class MainListAdapter extends ArrayAdapter {
     private void changeOrderStatus(final int tmpPos) {
         final Order tmpOrder = (Order) this.ordersList.get(tmpPos);
         //Dialog
-//Dialog dialog = new Dialog(this.context);
+        //Dialog dialog = new Dialog(this.context);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Pick Status");//TODO - strings.xml
+        builder.setTitle(R.string.pick_status);
         builder.setItems(OrderStatusEnum.getAllValues(), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -146,7 +146,7 @@ public class MainListAdapter extends ArrayAdapter {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ParseConnector.setOrderStatus(tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
+                        ParseConnector.setOrderStatus(tmpOrder.getClientID(),tmpOrder.getOrderID(), tmpOrder.getOrderStatusEnum());
                     }
                 });
                 thread.start();

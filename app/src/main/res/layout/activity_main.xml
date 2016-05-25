@@ -28,21 +28,28 @@
             android:layout_alignParentTop="false"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:layout_weight="33" />
+            android:layout_weight="25" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="@string/menu_edit"
             android:id="@+id/btnGoToMenuEdit"
-            android:layout_weight="33" />
+            android:layout_weight="25" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="@string/cutomers_admin"
             android:id="@+id/btnGoToCustomersArea"
-            android:layout_weight="33" />
+            android:layout_weight="25" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/store_status"
+            android:id="@+id/btnSetStoreStatus"
+            android:layout_weight="25" />
     </LinearLayout>
 
 </RelativeLayout>

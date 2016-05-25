@@ -32,4 +32,8 @@
     <string name="wait_deleting_item">אנא המתן לסיום מחיקת הפריט מהתפריט...</string>
     <string name="item_deleted">הפריט נמחק מהתפריט בהצלחה!</string>
     <string name="wait_refreshing_list">אנא המתן בעת ריענון הרשימה...</string>
+    <string name="edit_item_lable">ערוך פריט</string>
+    <string name="time_to_make">סה"כ זמן להכנה:</string>
+    <string name="wait_saving_item">אנא המתן בעת שמירת הפריט...</string>
+    <string name="pick_status">בחר סטטוס עדכני</string>
 </resources>

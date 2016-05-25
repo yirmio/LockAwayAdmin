@@ -17,6 +17,11 @@ import java.util.StringTokenizer;
 public class Order {
     private String clientETA;
     private String clientName;
+
+    public String getClientID() {
+        return clientID;
+    }
+
     private String clientID;
     private String extraInfo;
     private float totalPrice;

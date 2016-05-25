@@ -3,22 +3,16 @@ package com.yirmio.lockawayadmin.DAL;
 import android.util.Log;
 
 import com.parse.DeleteCallback;
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
-import com.yirmio.lockawayadmin.BL.MenuItemTypesEnum;
 import com.yirmio.lockawayadmin.BL.Order;
 import com.yirmio.lockawayadmin.BL.OrderStatusEnum;
 import com.yirmio.lockawayadmin.BL.RestaurantMenuObject;
 import com.yirmio.lockawayadmin.Utils.LockAwayAdminApplication;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,26 +33,28 @@ public final class ParseConnector {
     private static String TAG = "In ParseConnector Class";
     private static boolean tmpResult = false;
 
-    private static HashMap<String,String> objectsTypesToId = new HashMap<>();
-    private static HashMap<String,String> objectsIDToTypes = new HashMap<>();
+    private static HashMap<String, String> objectsTypesToId = new HashMap<>();
+    private static HashMap<String, String> objectsIDToTypes = new HashMap<>();
     private static String[] allTypes;
 
     //Get ObjectType From id
-    public static String getMenuObjectTyprIDByName(String name){
+    public static String getMenuObjectTyprIDByName(String name) {
         String itemType = objectsTypesToId.get(name);
         return itemType;
     }
-    public static String getMenuTypeNameByID(String id){
+
+    public static String getMenuTypeNameByID(String id) {
         return objectsIDToTypes.get(id);
     }
-    public static String[] getAllMenuObjectTypeNames(){
-        if (allTypes != null){
+
+    public static String[] getAllMenuObjectTypeNames() {
+        if (allTypes != null) {
             return allTypes;
-        }
-        else {
+        } else {
             return null;
         }
     }
+
     //query all object types and init hash map
     public static boolean initObjectTypes() {
         boolean res = true;
@@ -72,8 +68,8 @@ public final class ParseConnector {
                 for (ParseObject o : objects) {
                     tmpStr = o.getString("TypeName");
                     if (tmpStr != null) {
-                        objectsIDToTypes.put(o.getObjectId(),tmpStr);
-                        objectsTypesToId.put(tmpStr,o.getObjectId());
+                        objectsIDToTypes.put(o.getObjectId(), tmpStr);
+                        objectsTypesToId.put(tmpStr, o.getObjectId());
                         allTypes[counter] = tmpStr;
                     }
                     counter++;
@@ -291,14 +287,17 @@ public final class ParseConnector {
         return tmpParseObject;
     }
 
-    public static void setOrderStatus(String orderID, OrderStatusEnum orderStatusEnum) {
+    public static void setOrderStatus(String userId, String orderID, OrderStatusEnum orderStatusEnum) {
         ParseObject tmpOrder = getOrderByID(orderID);
         tmpOrder.put("OrderStatus", orderStatusEnum.toString());
         tmpOrder.saveInBackground();
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("orderID",orderID);
+        map.put("orderID", orderID);
+        map.put("userID", userId);
 
-        ParseCloud.callFunctionInBackground("sendPushAfterOrderStatusDone", map);
+//        ParseCloud.callFunctionInBackground("sendPushAfterOrderStatusDone", map);
+        ParseCloud.callFunctionInBackground("SendPushOnOrderStatusChanged", map);
+
 
     }
 
@@ -396,7 +395,7 @@ public final class ParseConnector {
 //                    tmpFile = getImagesFilesForObject(obj.getObjectId(), 1).get(0);
 //                }
 //            }
-            return new RestaurantMenuObject(id, description, price, title, timeToMake, type, isVeg, isGlotenFree,isAvaliable,isOnSale);
+            return new RestaurantMenuObject(id, description, price, title, timeToMake, type, isVeg, isGlotenFree, isAvaliable, isOnSale);
 //            return new RestaurantMenuObject(id, description, price, title, timeToMake, tmpFile, type, isVeg, isGlotenFree);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -433,12 +432,12 @@ public final class ParseConnector {
         } catch (ParseException e) {
             res = false;
         }
-        return  res;
+        return res;
 
     }
 
     public static RestaurantMenuObject getResturantMenuObjectByID(String itemID) {
-        ParseObject tmpItemToReturn= getMenuObjectByID(itemID);
+        ParseObject tmpItemToReturn = getMenuObjectByID(itemID);
         RestaurantMenuObject itemToReturn = CreateMenuItemFromParseObject(tmpItemToReturn);
         return itemToReturn;
     }
@@ -467,6 +466,35 @@ public final class ParseConnector {
         return res;
     }
 
+    public static boolean getStoreStatus(String restID) {
+        boolean statusToReturn = true;
+        ParseQuery<ParseObject> storeQuery = ParseQuery.getQuery("Stores");
+        try {
+            ParseObject store = storeQuery.get(restID);
+            if (store != null) {
+                statusToReturn = store.getBoolean("isOpen");
+            } else {
+                statusToReturn = false;
+            }
+        } catch (ParseException e) {
+            statusToReturn = false;
+        }
+        return statusToReturn;
+    }
+
+    public static void setStoreStatus(String restId, boolean newStoreStatus) {
+        ParseQuery<ParseObject> storeQuery = ParseQuery.getQuery("Stores");
+        try {
+            ParseObject store = storeQuery.get(restId);
+            if (store != null) {
+                store.put("isOpen", newStoreStatus);
+                LockAwayAdminApplication.setIsStoreOpen(newStoreStatus);
+                store.saveInBackground();
+            }
+        } catch (ParseException e) {
+
+        }
+
 //    public static boolean addObjectToOrder(String id, String orderID) {
 //        ParseObject tmpItem = new ParseObject("OrderedObjects");
 //
@@ -482,4 +510,4 @@ public final class ParseConnector {
 //        });
 //        return false;
 //    }
-}
+    }}

@@ -34,5 +34,12 @@
     <string name="time_to_make">Total Time To Make:</string>
     <string name="edit_item_lable">Edit Item</string>
     <string name="wait_saving_item">Please wait while saving item...</string>
+    <string name="pick_status">Pick Status</string>
+    <string name="store_status">Open/Close</string>
+    <string name="want_close_store">Are you sure you want to close the store for orders?</string>
+    <string name="want_open_store">Are youe sure you want to open the store to orders?</string>
+    <string name="store_closed">Store is closed - Cant get orders...</string>
+    <string name="close_store">Close store</string>
+    <string name="open_store">Open store</string>
 
 </resources>

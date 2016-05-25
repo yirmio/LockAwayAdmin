@@ -26,11 +26,21 @@ public class LockAwayAdminApplication extends Application {
     private static String restID = "g1bzMQEXoj";
     private static ArrayList<Order> allOrders;
     public static MenuItemTypesEnum menuItemTypesEnum;
+
+    public static boolean isStoreOpen() {
+        return isStoreOpen;
+    }
+
+    private static boolean isStoreOpen;
     ParseUser usr = null;
     //public static OrderStatusEnum staticOrderStatusEnum;
 
     public static String getRestID() {
         return restID;
+    }
+
+    public static void setIsStoreOpen(boolean isStoreOpenNew) {
+        isStoreOpen = isStoreOpenNew;
     }
 
     @Override
@@ -47,18 +57,16 @@ public class LockAwayAdminApplication extends Application {
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
 
-
-
         try {
-            usr = ParseUser.logIn("Yirmi", "Z69Hus&&");
+            usr = ParseUser.logIn("Afeya", "Z69Hus&&");
 
 
             ParseQuery<ParseObject> qRole = ParseQuery.getQuery("_Role");
-            qRole.whereEqualTo("name","AfeyaAdmins");
+            qRole.whereEqualTo("name", "AfeyaAdmins");
             qRole.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
-                    if (e == null){
+                    if (e == null) {
                         ParseRole adminsRole = (ParseRole) objects.get(0);
 //                        ParseACL adminACL = new ParseACL();
 //                        adminACL.setPublicReadAccess(true);
@@ -82,10 +90,11 @@ public class LockAwayAdminApplication extends Application {
         ParseACL.setDefaultACL(defaultACL, true);
 
 
-
         allOrders = new ArrayList<Order>();
 //        this.refreshOrders();
-        ParseConnector.initObjectTypes();    }
+        ParseConnector.initObjectTypes();
+        this.isStoreOpen = ParseConnector.getStoreStatus(restID);
+    }
 
     private void refreshOrders() {
         ArrayList<ParseObject> orders = ParseConnector.getActiveOrders(restID);
@@ -104,9 +113,6 @@ public class LockAwayAdminApplication extends Application {
             allOrders.add(new Order(order));
 
         }
-
-
-
 
 
         return hasNewOrders;
