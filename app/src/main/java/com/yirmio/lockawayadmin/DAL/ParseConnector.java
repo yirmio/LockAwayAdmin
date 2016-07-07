@@ -319,13 +319,17 @@ public final class ParseConnector {
         ParseQuery query = ParseUser.getQuery();
         ParseObject res = null;
         String username = null;
-        query.whereEqualTo("objectId", clientID);
-        try {
-            List<ParseUser> result = query.find();
-            username = result.get(0).getUsername();
+        if (!clientID.startsWith("05")) {
+            query.whereEqualTo("objectId", clientID);
+            try {
+                List<ParseUser> result = query.find();
+                username = result.get(0).getUsername();
 
-        } catch (ParseException e) {
-            e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            username = clientID;
         }
         return username;
     }

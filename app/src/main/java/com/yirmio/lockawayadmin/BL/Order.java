@@ -34,8 +34,13 @@ public class Order {
     public Order(ParseObject parseOrder) {
         if (parseOrder.getDate("UserETA") != null) {
             Date eta = parseOrder.getDate("UserETA");
+            eta.setHours(eta.getHours() -3);//TODO - fix time ZONE ISSUE
             String etaString = null;
-            etaString = String.valueOf(eta.getHours()) + ":" + String.valueOf(eta.getMinutes());
+            String hour = String.valueOf(eta.getMinutes());
+            if (hour.length() == 1){
+                hour = hour + "0";
+            }
+            etaString = String.valueOf(eta.getHours()) + ":" + hour;
             this.clientETA = etaString;
         }
         this.orderId = parseOrder.getObjectId();
