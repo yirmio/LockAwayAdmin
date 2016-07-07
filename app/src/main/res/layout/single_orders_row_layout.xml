@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Time To Make"
+                android:text="Time To Make:"
                 android:id="@+id/textViewTimeToMakeLable"
                 android:layout_below="@+id/textViewETALable"
                 android:singleLine="false"
@@ -60,7 +60,8 @@
                 android:id="@+id/textViewTimeToMakeValue"
                 android:layout_alignBottom="@+id/textViewTimeToMakeLable"
                 android:layout_toRightOf="@+id/textViewTimeToMakeLable"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:paddingLeft="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
