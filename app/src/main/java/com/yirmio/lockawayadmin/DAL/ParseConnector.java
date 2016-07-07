@@ -525,7 +525,11 @@ public final class ParseConnector {
 
         @Override
         public int compare(Order order, Order t1) {
-            return Time.compare(order.getTimeToBeReady(),t1.getTimeToBeReady());
+            if (order.getTimeToBeReady() != null && t1.getTimeToBeReady() != null) {
+                return Time.compare(order.getTimeToBeReady(),t1.getTimeToBeReady());
+            } else {
+                return 0;
+            }
 //            return order.getTimeToBeReady().compare(order.getTimeToBeReady(),t1.getTimeToBeReady());
         }
     }
