@@ -1,5 +1,6 @@
 package com.yirmio.lockawayadmin.DAL;
 
+import android.text.format.Time;
 import android.util.Log;
 
 import com.parse.DeleteCallback;
@@ -15,6 +16,8 @@ import com.yirmio.lockawayadmin.BL.RestaurantMenuObject;
 import com.yirmio.lockawayadmin.Utils.LockAwayAdminApplication;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -96,6 +99,8 @@ public final class ParseConnector {
                 resBL.add(tmpOrder);
             }
         }
+        Collections.sort(resBL,new OrderTimeToBeReadyComperator());
+
         return resBL;
     }
 
@@ -514,4 +519,14 @@ public final class ParseConnector {
 //        });
 //        return false;
 //    }
-    }}
+    }
+
+    private static class OrderTimeToBeReadyComperator implements Comparator<Order> {
+
+        @Override
+        public int compare(Order order, Order t1) {
+            return Time.compare(order.getTimeToBeReady(),t1.getTimeToBeReady());
+//            return order.getTimeToBeReady().compare(order.getTimeToBeReady(),t1.getTimeToBeReady());
+        }
+    }
+}

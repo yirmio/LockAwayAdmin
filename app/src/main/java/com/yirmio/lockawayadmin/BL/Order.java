@@ -42,6 +42,7 @@ public class Order {
             }
             etaString = String.valueOf(eta.getHours()) + ":" + hour;
             this.clientETA = etaString;
+            this.timeToBeReady = new Time(eta.toString());
         }
         this.orderId = parseOrder.getObjectId();
         this.clientID = parseOrder.getString("UserID");
